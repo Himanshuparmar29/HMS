@@ -4,10 +4,10 @@ if(!$conn){
     die("Connection failed: " . mysqli_connect_error());
 }
 $username=$_REQUEST['userid'];
-$sql="DELETE FROM doctor WHERE doctor_id='$username'";
+$sql="DELETE FROM hospital WHERE hospital_id='$username'";
 if(mysqli_query($conn,$sql)){
-    echo "<script type='text/javascript'>alert('Doctor Deleted Successfully!')
-    window.location.href='../app/user-list.php';
+    echo "<script type='text/javascript'>alert('Hospital Information Deleted Successfully!')
+    window.location.href='../app/hospital-list.php';
     </script>";
 }
 ?>

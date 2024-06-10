@@ -1,3 +1,8 @@
+<?php
+session_start();
+$_SESSION['username'] = $_REQUEST['userid'];
+?>
+
 <!doctype html>
 <html lang="en" dir="ltr">
 
@@ -71,75 +76,27 @@
         <div class="content-inner container-fluid pb-0" id="page_layout">
             <div>
                 <div class="row">
-                    <form id="fm" action="../my_php/user_data_insert.php" method="post" enctype="multipart/form-data"
-                        onsubmit="return validateForm()">
-                        <div class="col-xl-3 col-lg-4" id="left-div">
+                    <?php
+                    if (isset($_SESSION['error'])) {
+                        echo "<div class='alert alert-danger' role='alert'>" . $_SESSION['error'] . "</div>";
+                        unset($_SESSION['error']);
+                    }
+                    $conn = mysqli_connect("localhost", "root", "", "hms");
+                    if (!$conn) {
+                        die("Connection failed: " . mysqli_connect_error());
+                    }
+                    $username = $_REQUEST["userid"];
+                    $sql = "SELECT * FROM hospital WHERE hospital_id='$username'";
+                    $result = mysqli_query($conn, $sql);
+                    $row = mysqli_fetch_assoc($result);
+                    ?>
+                    <form id="fm" action="../my_php/hospital_update_data.php" method="post"
+                        enctype="multipart/form-data">
+                        <div class="col-xl-9 col-lg-8" id="right-div" style="margin-left:200px;">
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between">
                                     <div class="header-title">
-                                        <h4 class="card-title">Add New User</h4>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <div class="profile-img-edit position-relative">
-                                            <img src="<?php echo "http://" . $_SERVER['SERVER_NAME'] . "/Compac-admin/assets/images/avatars/01.png" ?>"
-                                                alt="profile-pic"
-                                                class="theme-color-default-img profile-pic rounded avatar-100"
-                                                loading="lazy">
-                                            <label for="upload">
-                                                <div class="upload-icone bg-primary">
-                                                    <svg class="upload-button icon-14" width="14" height="14"
-                                                        viewBox="0 0 24 24">
-                                                        <path fill="#ffffff"
-                                                            d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
-                                                    </svg>
-                                                </div>
-                                            </label>
-                                            <input class="file-upload" type="file" id="upload" name="profile"
-                                                style="display: none; visibility: none;">
-                                        </div>
-                                        <div class="img-extension mt-3">
-                                            <div class="d-inline-block align-items-center">
-                                                <span>Only</span>
-                                                <a href="javascript:void(0);">.jpg</a>
-                                                <a href="javascript:void(0);">.png</a>
-                                                <a href="javascript:void(0);">.jpeg</a>
-                                                <span>allowed</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-label">Qualifications:</div>
-                                    <div class="form-group" id="doctor-qualifications">
-                                        <input type="text" name="qualifications[]" id="qualifications0"
-                                            class="selectpicker form-control" placeholder="Enter qualification"
-                                            required />
-                                    </div>
-                                    <button type="button" id="addQualifications">Add Qualifications</button>
-                                    <div class="form-group">
-                                        <label class="form-label" for="doctor-specializations">Specialization:</label>
-                                        <input name="doctor-specializations" id="doctor-specializations"
-                                            class="selectpicker form-control" required />
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label" for="doctor-job-titles">Current Position:</label>
-                                        <input name="doctor-job-titles" id="doctor-job-titles"
-                                            class="selectpicker form-control" data-style="py-0" />
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label" for="experience">Years Of Experience:</label>
-                                        <input type="number" name="experience" id="experience"
-                                            class="selectpicker form-control">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-9 col-lg-8" id="right-div">
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-between">
-                                    <div class="header-title">
-                                        <h4 class="card-title">New User Information</h4>
+                                        <h4 class="card-title">Update User Information</h4>
                                     </div>
                                 </div>
 
@@ -148,61 +105,50 @@
 
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <label class="form-label" for="fname">First Name:</label>
-                                                <input type="text" class="form-control" id="fname" name="fname"
+                                                <label class="form-label" for="name">Name:</label>
+                                                <input type="text" class="form-control" id="name" name="name"
                                                     placeholder="First Name">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="lname">Last Name:</label>
-                                                <input type="text" class="form-control" id="lname" name="lname"
-                                                    placeholder="Last Name">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="gender">Select Gender:</label>
-                                                <select name="gender" id="gender" class="form-control" required>
-                                                    <option value="" disabled selected>Select Gender</option>
-                                                    <option value="male">Male</option>
-                                                    <option value="female">Female</option>
-                                                    <option value="other">Other</option>
-                                                </select>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label class="form-label" for="add">Address:</label>
                                                 <input type="text" class="form-control" id="add" name="add"
                                                     placeholder="Address">
                                             </div>
-                                            <div class="form-group col-md-6" id="nomcontainer">
-                                                <label class="form-label" for="mobno">Mobile Number:</label>
-                                                <input type="text" class="form-control" id="mobno" name="mobno"
-                                                    placeholder=" Enter Mobile Number">
-                                            </div>
                                             <div class="form-group col-md-6">
                                                 <label class="form-label" for="email">Email:</label>
                                                 <input type="email" class="form-control" id="email" name="email"
                                                     placeholder="Email">
                                             </div>
+                                            <div class="form-group col-md-6" id="nomcontainer">
+                                                <label class="form-label" for="mobno">Mobile Number:</label>
+                                                <input type="text" class="form-control" id="mobno" name="mobno"
+                                                    placeholder=" Enter Mobile Number" maxlength="10">
+                                            </div>
+
                                             <div class="form-group col-md-6">
                                                 <label class="form-label" for="pno">Pin Code:</label>
                                                 <input type="text" class="form-control" id="pno" name="pno"
                                                     placeholder="Pin Code">
                                             </div>
-                                            <div class="form-group col-md-12">
+                                            <div class="form-group col-md-6">
                                                 <label class="form-label" for="city">Town/City:</label>
                                                 <input type="text" class="form-control" id="city" name="city"
                                                     placeholder="Town/City">
+                                            </div>
+                                            <div class="form-label">Active Status:</div>
+                                            <div class="form-group" id="doctor-qualifications">
+                                                <select name="active" id="active" class="form-control" required>
+                                                    <option value="yes">active</option>
+                                                    <option value="no">Inactive</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <hr>
                                         <h5 class="mb-3">Security</h5>
                                         <div class="row">
-                                            <div class="form-group col-md-12">
-                                                <label class="form-label" for="uname">User Name:</label>
-                                                <input type="text" class="form-control" name="uname" id="uname"
-                                                    placeholder="User Name">
-                                            </div>
                                             <div class="form-group col-md-6">
                                                 <label class="form-label" for="pass">Password:</label>
-                                                <input type="password" class="form-control" name="pass"
+                                                <input type="password" class="form-control" name="pass" id="pass"
                                                     placeholder="Password">
                                             </div>
                                             <div class="form-group col-md-6">
@@ -212,7 +158,7 @@
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary"
-                                            onclick="return validateForm()">Add New User</button>
+                                            onclick="return validateForm()">Update User</button>
 
                                     </div>
                                 </div>
@@ -661,54 +607,24 @@
         </svg>
     </a>
     <!-- Live Customizer end -->
-
-    <!-- Library Bundle Script -->
-    <script src="../assets/js/core/libs.min.js"></script>
-    <!-- Plugin Scripts -->
-
-    <!-- Slider-tab Script -->
-    <script src="../assets/js/plugins/slider-tabs.js"></script>
-    <!-- Lodash Utility -->
-    <script src="../assets/vendor/lodash/lodash.min.js"></script>
-    <!-- Utilities Functions -->
-    <script src="../assets/js/iqonic-script/utility.min.js"></script>
-    <!-- Settings Script -->
-    <script src="../assets/js/iqonic-script/setting.min.js"></script>
-    <!-- Settings Init Script -->
-    <script src="../assets/js/setting-init.js"></script>
-    <!-- External Library Bundle Script -->
-    <script src="../assets/js/core/external.min.js"></script>
-    <!-- Widgetchart Script -->
-    <script src="../assets/js/charts/widgetchartsf700.js?v=1.0.1" defer></script>
-    <!-- Dashboard Script -->
-    <script src="../assets/js/charts/dashboardf700.js?v=1.0.1" defer></script>
-    <!-- qompacui Script -->
-    <script src="../assets/js/qompac-uif700.js?v=1.0.1" defer></script>
-    <script src="../assets/js/sidebarf700.js?v=1.0.1" defer></script>
-
-    <!-- My script -->
-    <script src="../my_js/my_script_for_add_user.js" defer></script>
-    <!-- Header -->
-    <script src="../my_js/header_footer.js"></script>
     <script>
         function validateForm() {
+            let flag = confirm("Are you sure you want to update?");
+            if (!flag) {
+                return false;
+            }
             const form = document.getElementById('fm');
-
-            // Getting values and trimming
-            const fname = form.fname.value.trim();
-            const lname = form.lname.value.trim();
-            const gender = form.gender.value.trim();
+            const name = form.name.value.trim();
             const address = form.add.value.trim();
-            const mobile = form.mobno0.value.trim();
             const email = form.email.value.trim();
             const pincode = form.pno.value.trim();
             const city = form.city.value.trim();
-            const username = form.uname.value.trim();
+            const mobno = form.mobno.value.trim();
             const password = form.pass.value.trim();
             const repeatPassword = form.rpass.value.trim();
 
             // Check if all fields are filled
-            if ([fname, lname, gender, address, mobile, email, pincode, city, username, password, repeatPassword].includes('')) {
+            if ([name, address, email, pincode, city, password, repeatPassword].includes('')) {
                 alert('All fields are required');
                 return false;
             }
@@ -754,6 +670,45 @@
         }
 
     </script>
+    <!-- Library Bundle Script -->
+    <script src="../assets/js/core/libs.min.js"></script>
+    <!-- Plugin Scripts -->
+
+    <!-- Slider-tab Script -->
+    <script src="../assets/js/plugins/slider-tabs.js"></script>
+    <!-- Lodash Utility -->
+    <script src="../assets/vendor/lodash/lodash.min.js"></script>
+    <!-- Utilities Functions -->
+    <script src="../assets/js/iqonic-script/utility.min.js"></script>
+    <!-- Settings Script -->
+    <script src="../assets/js/iqonic-script/setting.min.js"></script>
+    <!-- Settings Init Script -->
+    <script src="../assets/js/setting-init.js"></script>
+    <!-- External Library Bundle Script -->
+    <script src="../assets/js/core/external.min.js"></script>
+    <!-- Widgetchart Script -->
+    <script src="../assets/js/charts/widgetchartsf700.js?v=1.0.1" defer></script>
+    <!-- Dashboard Script -->
+    <script src="../assets/js/charts/dashboardf700.js?v=1.0.1" defer></script>
+    <!-- qompacui Script -->
+    <script src="../assets/js/qompac-uif700.js?v=1.0.1" defer></script>
+    <script src="../assets/js/sidebarf700.js?v=1.0.1" defer></script>
+
+    <!-- Header -->
+    <script src="../my_js/header_footer.js"></script>
+    <!-- Custom Script -->
+    <?php echo "<script>
+                    document.getElementById('name').value = '" . $row['name'] . "';
+                    document.getElementById('email').value = '" . $row['email'] . "';
+                    document.getElementById('add').value = '" . $row['address'] . "';
+                    document.getElementById('mobno').value = '" . $row['phone_number'] . "';
+                    document.getElementById('pno').value = '" . $row['pincode'] . "';
+                    document.getElementById('city').value = '" . $row['city'] . "';
+                    document.getElementById('pass').value = '" . $row['password'] . "';
+                    document.getElementById('rpass').value = '" . $row['password'] . "';
+                    document.getElementById('active').value = '" . $row['is_active'] . "';
+            </script>";
+    ?>
 </body>
 
 <!-- Mirrored from templates.iqonic.design/product/qompac-ui/html/dist/dashboard/app/user-add.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 21 Oct 2023 23:57:48 GMT -->

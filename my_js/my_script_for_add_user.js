@@ -29,74 +29,84 @@ document.getElementById('addQualifications').addEventListener('click', function 
 });
 
 //For Mobile Number
-let temp1 = 0;
-document.getElementById('addNumber').addEventListener('click', function () {
-    let newId = "mobno" + temp1;
-    // document.write(newId);
-    if (document.getElementById(newId).value == "") {
-        alert("Empty field!");
+// let temp1 = 0;
+// document.getElementById('addNumber').addEventListener('click', function () {
+//     let newId = "mobno" + temp1;
+//     // document.write(newId);
+//     if (document.getElementById(newId).value == "") {
+//         alert("Empty field!");
+//     }
+//     else {
+//         temp1++;
+//         let input = document.createElement('input');
+//         input.type = 'text';
+//         input.name = 'mobno[]';
+//         input.className = 'form-control';
+//         input.placeholder = 'Enter Mobile Number';
+//         input.id = 'mobno' + temp1;
+//         document.getElementById('nomcontainer').appendChild(input);
+//     }
+// });
+
+function validateForm() {
+    const form = document.getElementById('fm');
+
+    // Getting values and trimming
+    const fname = form.fname.value.trim();
+    const lname = form.lname.value.trim();
+    const gender = form.gender.value.trim();
+    const address = form.add.value.trim();
+    const mobile = form.mobno0.value.trim();
+    const email = form.email.value.trim();
+    const pincode = form.pno.value.trim();
+    const city = form.city.value.trim();
+    const username = form.uname.value.trim();
+    const password = form.pass.value.trim();
+    const repeatPassword = form.rpass.value.trim();
+
+    // Check if all fields are filled
+    if ([fname, lname, gender, address, mobile, email, pincode, city, username, password, repeatPassword].includes('')) {
+        alert('All fields are required');
+        return false;
     }
-    else {
-        temp1++;
-        let input = document.createElement('input');
-        input.type = 'text';
-        input.name = 'mobno[]';
-        input.className = 'form-control';
-        input.placeholder = 'Enter Mobile Number';
-        input.id = 'mobno' + temp1;
-        document.getElementById('nomcontainer').appendChild(input);
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alert('Please enter a valid email address');
+        form.email.focus();
+        return false;
     }
-});
 
-    function validateForm() {
-        var fname = document.getElementById('fname').value;
-        var lname = document.getElementById('lname').value;
-        var gender = document.getElementById('gender').value;
-        var add = document.getElementById('add').value;
-        var mobno = document.getElementById('mobno0').value;
-        var email = document.getElementById('email').value;
-        var pno = document.getElementById('pno').value;
-        var city = document.getElementById('city').value;
-        var uname = document.getElementById('uname').value;
-        var pass = document.getElementById('pass').value;
-        var rpass = document.getElementById('rpass').value;
-
-        if (fname.trim() == '' || lname.trim() == '' || gender.trim() == '' || add.trim() == '' || mobno.trim() == '' || email.trim() == '' || pno.trim() == '' || city.trim() == '' || uname.trim() == '' || pass.trim() == '' || rpass.trim() == '') {
-            alert('All fields are required');
-            return false;
-        }
-
-        // Validate email
-        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            alert('Please enter a valid email address');
-            return false;
-        }
-
-        // Validate mobile number
-        var mobnoRegex = /^[0-9]+$/;
-        if (!mobnoRegex.test(mobno) || mobno.length != 10) {
-            alert('Please enter a valid 10-digit mobile number');
-            return false;
-        }
-
-        // Validate password match
-        if (pass != rpass) {
-            alert('Passwords do not match');
-            return false;
-        }
-
-        // Validate minimum username length
-        if (uname.length < 6) {
-            alert('Username must be at least 6 characters long');
-            return false;
-        }
-
-        // Validate minimum password length
-        if (pass.length < 6) {
-            alert('Password must be at least 6 characters long');
-            return false;
-        }
-
-        return true;
+    // Mobile number validation
+    const mobileRegex = /^[0-9]{10}$/;
+    if (!mobileRegex.test(mobile)) {
+        alert('Please enter a valid 10-digit mobile number');
+        form.mobno0.focus();
+        return false;
     }
+
+    // Username length validation
+    if (username.length < 6) {
+        alert('Username must be at least 6 characters long');
+        form.uname.focus();
+        return false;
+    }
+
+    // Password length validation
+    if (password.length < 6) {
+        alert('Password must be at least 6 characters long');
+        form.pass.focus();
+        return false;
+    }
+
+    // Password match validation
+    if (password !== repeatPassword) {
+        alert('Passwords do not match');
+        form.rpass.focus();
+        return false;
+    }
+
+    return true;
+}
+

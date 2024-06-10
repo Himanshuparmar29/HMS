@@ -59,7 +59,7 @@ session_start();
 
 <body class="  ">
    <!-- loader Start -->
-   <my-loader></my-loader>
+   <!-- <my-loader></my-loader> -->
    <!-- loader END -->
    <aside class="sidebar sidebar-base sidebar-white sidebar-default navs-rounded-all " id="first-tour"
       data-toggle="main-sidebar" data-sidebar="responsive">
@@ -76,7 +76,7 @@ session_start();
                   <div class="card">
                      <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
-                           <h4 class="card-title">User List</h4>
+                           <h4 class="card-title">Hospital List</h4>
                         </div>
                      </div>
                      <div class="card-body">
@@ -84,23 +84,16 @@ session_start();
                            <table id="user-list-table" class="table table-striped" role="grid" data-toggle="data-table">
                               <thead>
                                  <tr class="ligth">
-                                    <th>Profile</th>
                                     <th>User Name</th>
                                     <th>Password</th>
                                     <th>Name</th>
-                                    <th>Gender</th>
                                     <th>Address</th>
                                     <th>City</th>
                                     <th>Pincode</th>
                                     <th>Email</th>
                                     <th>Phone Number</th>
-                                    <th>Qualifications</th>
-                                    <th>Specialization</th>
-                                    <th>Current Position</th>
                                     <th>Joining Date</th>
-                                    <th>Years of Experience</th>
                                     <th>Active Status</th>
-                                    <th>Available Status</th>
                                     <th style="min-width: 100px">Action</th>
                                     <!-- <th style="min-width: 100px">Action</th> -->
                                  </tr>
@@ -111,56 +104,29 @@ session_start();
                                  if (!$conn) {
                                     die("Failed to connect: " . mysqli_connect_error());
                                  }
-                                 $sql = "SELECT * FROM doctor";
+                                 $sql = "SELECT * FROM hospital";
                                  $result = mysqli_query($conn, $sql);
                                  if ($result) {
                                     if (mysqli_num_rows($result) > 0) {
                                        while ($row = mysqli_fetch_assoc($result)) {
                                           echo "<tr>";
-                                          echo "<td class='text-center'><img class='bg-soft-primary rounded img-fluid avatar-40 me-3' src='../my_php/" . $row['img_path'] . " ' alt='profile' loading='lazy'></td>";
-                                          echo "<td>" . $row['doctor_id'] . "</td>";
+                                          echo "<td>" . $row['hospital_id'] . "</td>";
                                           echo "<td>" . $row['password'] . "</td>";
-                                          echo "<td>" . $row['first_name'] . " " . $row['last_name'] . "</td>";
-                                          echo "<td>" . $row['gender'] . "</td>";
+                                          echo "<td>" . $row['name'] ."</td>";
                                           echo "<td>" . $row['address'] . "</td>";
-                                          echo "<td>" . $row['city'] . "</td>";
+                                          echo "<td>" . $row['city'] ."</td>";
                                           echo "<td>" . $row['pincode'] . "</td>";
                                           echo "<td>" . $row['email'] . "</td>";
-                                          echo "<td>";
-                                          $sql1 = "SELECT * FROM doctor_phone_number";
-                                          $sql2 = "SELECT * FROM doctor_qualifications";
-                                          $result1 = mysqli_query($conn, $sql1);
-                                          $result2 = mysqli_query($conn, $sql2);
-                                          while ($row1 = mysqli_fetch_assoc($result1)) {
-                                             if ($row['doctor_id'] == $row1['doctor_id']) {
-                                                echo $row1['phone_number'] . "<br>";
-                                             }
-                                          }
-                                          echo "</td>";
-                                          echo "<td>";
-                                          while ($row2 = mysqli_fetch_assoc($result2)) {
-                                             if ($row['doctor_id'] == $row2['doctor_id']) {
-                                                echo $row2['qualification'] . "<br>";
-                                             }
-                                          }
-                                          echo "</td>";
-                                          echo "<td>" . $row['specialization'] . "</td>";
-                                          echo "<td>" . $row['current_position'] . "</td>";
-                                          echo "<td>" . $row['Joining_Date'] . "</td>";
-                                          echo "<td>" . $row['years_of_experience'] . "</td>";
+                                          echo "<td>" . $row['phone_number'] . "</td>";
+                                          echo "<td>" . $row['joining_date'] . "</td>";
                                           if ($row['is_active'] == "yes") {
                                              echo "<td><span class=\"badge bg-primary\">Active</span></td>";
                                           } else {
                                              echo "<td><span class=\"badge bg-warning\">Inactive</span></td>";
                                           }
-                                          if ($row['is_available'] == "yes") {
-                                             echo "<td><span class=\"badge bg-primary\">Available</span></td>";
-                                          } else {
-                                             echo "<td><span class=\"badge bg-warning\">Unavailable</span></td>";
-                                          }
                                           echo '<td>
                               <div class="flex align-items-center list-user-action">
-                                 <a class="btn btn-sm btn-icon btn-warning rounded" data-bs-toggle="tooltip" data-placement="top" title="" data-bs-original-title="Edit" href="edit.php?userid=' . $row['doctor_id'] . '">
+                                 <a class="btn btn-sm btn-icon btn-warning rounded" data-bs-toggle="tooltip" data-placement="top" title="" data-bs-original-title="Edit" href="editHospital.php?userid=' . $row['hospital_id'] . '">
                                     <span class="btn-inner">
                                        <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                           <path d="M11.4925 2.78906H7.75349C4.67849 2.78906 2.75049 4.96606 2.75049 8.04806V16.3621C2.75049 19.4441 4.66949 21.6211 7.75349 21.6211H16.5775C19.6625 21.6211 21.5815 19.4441 21.5815 16.3621V12.3341" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -169,7 +135,7 @@ session_start();
                                        </svg>
                                     </span>
                                  </a>
-                                 <a class="btn btn-sm btn-icon btn-danger rounded" data-bs-toggle="tooltip" data-placement="top" title="" data-bs-original-title="Delete" href="delete.php?userid=' . $row['doctor_id'] . '" onclick="return check()">
+                                 <a class="btn btn-sm btn-icon btn-danger rounded" data-bs-toggle="tooltip" data-placement="top" title="" data-bs-original-title="Delete" href="deleteHospital.php?userid=' . $row['hospital_id'] . '" onclick="return check()">
                                     <span class="btn-inner">
                                        <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
                                           <path d="M19.3248 9.46826C19.3248 9.46826 18.7818 16.2033 18.4668 19.0403C18.3168 20.3953 17.4798 21.1893 16.1088 21.2143C13.4998 21.2613 10.8878 21.2643 8.27979 21.2093C6.96079 21.1823 6.13779 20.3783 5.99079 19.0473C5.67379 16.1853 5.13379 9.46826 5.13379 9.46826" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -679,7 +645,6 @@ session_start();
 
    <!-- My script -->
    <script src="../my_js/header_footer.js"></script>
-
    <script>
       function check()
       {

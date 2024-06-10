@@ -1,3 +1,8 @@
+<?php
+session_start();
+$_SESSION['username'] = $_REQUEST['userid'];
+?>
+
 <!doctype html>
 <html lang="en" dir="ltr">
 
@@ -71,19 +76,36 @@
         <div class="content-inner container-fluid pb-0" id="page_layout">
             <div>
                 <div class="row">
-                    <form id="fm" action="../my_php/user_data_insert.php" method="post" enctype="multipart/form-data"
-                        onsubmit="return validateForm()">
+                    <?php
+                    if (isset($_SESSION['error'])) {
+                        echo "<div class='alert alert-danger' role='alert'>" . $_SESSION['error'] . "</div>";
+                        unset($_SESSION['error']);
+                    }
+                    $conn = mysqli_connect("localhost", "root", "", "hms");
+                    if (!$conn) {
+                        die("Connection failed: " . mysqli_connect_error());
+                    }
+                    $username = $_REQUEST["userid"];
+                    $sql1 = "SELECT * FROM doctor WHERE doctor_id='$username'";
+                    $result1 = mysqli_query($conn, $sql1);
+                    $row1 = mysqli_fetch_assoc($result1);
+                    $sql2 = "SELECT * FROM doctor_phone_number WHERE doctor_id='$username'";
+                    $result2 = mysqli_query($conn, $sql2);
+                    $img_path = $row1['img_path'];
+                    ?>
+                    <form id="fm" action="../my_php/user_update_data_insert.php" method="post"
+                        enctype="multipart/form-data" >
                         <div class="col-xl-3 col-lg-4" id="left-div">
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between">
                                     <div class="header-title">
-                                        <h4 class="card-title">Add New User</h4>
+                                        <h4 class="card-title">Update User</h4>
                                     </div>
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
                                         <div class="profile-img-edit position-relative">
-                                            <img src="<?php echo "http://" . $_SERVER['SERVER_NAME'] . "/Compac-admin/assets/images/avatars/01.png" ?>"
+                                            <img src="<?php echo "http://" . $_SERVER['SERVER_NAME'] . "/Compac-admin/my_php/" . $img_path; ?>"
                                                 alt="profile-pic"
                                                 class="theme-color-default-img profile-pic rounded avatar-100"
                                                 loading="lazy">
@@ -108,18 +130,12 @@
                                                 <span>allowed</span>
                                             </div>
                                         </div>
+
                                     </div>
-                                    <div class="form-label">Qualifications:</div>
-                                    <div class="form-group" id="doctor-qualifications">
-                                        <input type="text" name="qualifications[]" id="qualifications0"
-                                            class="selectpicker form-control" placeholder="Enter qualification"
-                                            required />
-                                    </div>
-                                    <button type="button" id="addQualifications">Add Qualifications</button>
                                     <div class="form-group">
-                                        <label class="form-label" for="doctor-specializations">Specialization:</label>
-                                        <input name="doctor-specializations" id="doctor-specializations"
-                                            class="selectpicker form-control" required />
+                                        <label class="form-label" for="experience">Years Of Experience:</label>
+                                        <input type="number" name="experience" id="experience"
+                                            class="selectpicker form-control">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" for="doctor-job-titles">Current Position:</label>
@@ -127,10 +143,12 @@
                                             class="selectpicker form-control" data-style="py-0" />
 
                                     </div>
-                                    <div class="form-group">
-                                        <label class="form-label" for="experience">Years Of Experience:</label>
-                                        <input type="number" name="experience" id="experience"
-                                            class="selectpicker form-control">
+                                    <div class="form-label">Active Status:</div>
+                                    <div class="form-group" id="doctor-qualifications">
+                                        <select name="active" id="active" class="form-control" required>
+                                            <option value="yes">active</option>
+                                            <option value="no">Inactive</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -139,7 +157,7 @@
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between">
                                     <div class="header-title">
-                                        <h4 class="card-title">New User Information</h4>
+                                        <h4 class="card-title">Update User Information</h4>
                                     </div>
                                 </div>
 
@@ -158,29 +176,22 @@
                                                     placeholder="Last Name">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label for="gender">Select Gender:</label>
-                                                <select name="gender" id="gender" class="form-control" required>
-                                                    <option value="" disabled selected>Select Gender</option>
-                                                    <option value="male">Male</option>
-                                                    <option value="female">Female</option>
-                                                    <option value="other">Other</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-6">
                                                 <label class="form-label" for="add">Address:</label>
                                                 <input type="text" class="form-control" id="add" name="add"
                                                     placeholder="Address">
-                                            </div>
-                                            <div class="form-group col-md-6" id="nomcontainer">
-                                                <label class="form-label" for="mobno">Mobile Number:</label>
-                                                <input type="text" class="form-control" id="mobno" name="mobno"
-                                                    placeholder=" Enter Mobile Number">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label class="form-label" for="email">Email:</label>
                                                 <input type="email" class="form-control" id="email" name="email"
                                                     placeholder="Email">
                                             </div>
+                                            <div class="form-group col-md-6" id="nomcontainer">
+                                                Mobile Number:
+                                                <label class="form-label" for="mobno">Mobile Number:</label>
+                                                <input type="text" class="form-control" id="mobno" name="mobno"
+                                                    placeholder=" Enter Mobile Number">
+                                            </div>
+
                                             <div class="form-group col-md-6">
                                                 <label class="form-label" for="pno">Pin Code:</label>
                                                 <input type="text" class="form-control" id="pno" name="pno"
@@ -195,14 +206,9 @@
                                         <hr>
                                         <h5 class="mb-3">Security</h5>
                                         <div class="row">
-                                            <div class="form-group col-md-12">
-                                                <label class="form-label" for="uname">User Name:</label>
-                                                <input type="text" class="form-control" name="uname" id="uname"
-                                                    placeholder="User Name">
-                                            </div>
                                             <div class="form-group col-md-6">
                                                 <label class="form-label" for="pass">Password:</label>
-                                                <input type="password" class="form-control" name="pass"
+                                                <input type="password" class="form-control" name="pass" id="pass"
                                                     placeholder="Password">
                                             </div>
                                             <div class="form-group col-md-6">
@@ -212,7 +218,7 @@
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary"
-                                            onclick="return validateForm()">Add New User</button>
+                                            onclick="return validateForm()">Update User</button>
 
                                     </div>
                                 </div>
@@ -661,7 +667,69 @@
         </svg>
     </a>
     <!-- Live Customizer end -->
+    <script>
+        function validateForm() {
+            let flag=confirm("Are you sure you want to update?");
+            if(!flag){
+                return false;
+            }
+            const form = document.getElementById('fm');
+            const fname = form.fname.value.trim();
+            const lname = form.lname.value.trim();
+            const address = form.add.value.trim();
+            const email = form.email.value.trim();
+            const pincode = form.pno.value.trim();
+            const city = form.city.value.trim();
+            const password = form.pass.value.trim();
+            const repeatPassword = form.rpass.value.trim();
 
+            // Check if all fields are filled
+            if ([fname, lname,address,email, pincode, city, password, repeatPassword].includes('')) {
+                alert('All fields are required');
+                return false;
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address');
+                form.email.focus();
+                return false;
+            }
+
+            // Mobile number validation
+            // const mobileRegex = /^[0-9]{10}$/;
+            // if (!mobileRegex.test(mobile)) {
+            //     alert('Please enter a valid 10-digit mobile number');
+            //     form.mobno0.focus();
+            //     return false;
+            // }
+
+            // Username length validation
+            if (username.length < 6) {
+                alert('Username must be at least 6 characters long');
+                form.uname.focus();
+                return false;
+            }
+
+            // Password length validation
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters long');
+                form.pass.focus();
+                return false;
+            }
+
+            // Password match validation
+            if (password !== repeatPassword) {
+                alert('Passwords do not match');
+                form.rpass.focus();
+                return false;
+            }
+
+            return true;
+        }
+
+    </script>
     <!-- Library Bundle Script -->
     <script src="../assets/js/core/libs.min.js"></script>
     <!-- Plugin Scripts -->
@@ -690,70 +758,22 @@
     <script src="../my_js/my_script_for_add_user.js" defer></script>
     <!-- Header -->
     <script src="../my_js/header_footer.js"></script>
-    <script>
-        function validateForm() {
-            const form = document.getElementById('fm');
-
-            // Getting values and trimming
-            const fname = form.fname.value.trim();
-            const lname = form.lname.value.trim();
-            const gender = form.gender.value.trim();
-            const address = form.add.value.trim();
-            const mobile = form.mobno0.value.trim();
-            const email = form.email.value.trim();
-            const pincode = form.pno.value.trim();
-            const city = form.city.value.trim();
-            const username = form.uname.value.trim();
-            const password = form.pass.value.trim();
-            const repeatPassword = form.rpass.value.trim();
-
-            // Check if all fields are filled
-            if ([fname, lname, gender, address, mobile, email, pincode, city, username, password, repeatPassword].includes('')) {
-                alert('All fields are required');
-                return false;
-            }
-
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert('Please enter a valid email address');
-                form.email.focus();
-                return false;
-            }
-
-            // Mobile number validation
-            const mobileRegex = /^[0-9]{10}$/;
-            if (!mobileRegex.test(mobile)) {
-                alert('Please enter a valid 10-digit mobile number');
-                form.mobno0.focus();
-                return false;
-            }
-
-            // Username length validation
-            if (username.length < 6) {
-                alert('Username must be at least 6 characters long');
-                form.uname.focus();
-                return false;
-            }
-
-            // Password length validation
-            if (password.length < 6) {
-                alert('Password must be at least 6 characters long');
-                form.pass.focus();
-                return false;
-            }
-
-            // Password match validation
-            if (password !== repeatPassword) {
-                alert('Passwords do not match');
-                form.rpass.focus();
-                return false;
-            }
-
-            return true;
-        }
-
-    </script>
+    <!-- Custom Script -->
+    <?php echo "<script>
+                    document.getElementById('fname').value = '" . $row1['first_name'] . "';
+                    document.getElementById('lname').value = '" . $row1['last_name'] . "';
+                    document.getElementById('email').value = '" . $row1['email'] . "';
+                    document.getElementById('add').value = '" . $row1['address'] . "';
+                    document.getElementById('doctor-job-titles').value = '" . $row1['current_position'] . "';
+                    document.getElementById('mobno').value = '" .$row1['phone_number']. "';
+                    document.getElementById('pno').value = '" . $row1['pincode'] . "';
+                    document.getElementById('city').value = '" . $row1['city'] . "';
+                    document.getElementById('pass').value = '" . $row1['password'] . "';
+                    document.getElementById('rpass').value = '" . $row1['password'] . "';
+                    document.getElementById('experience').value = '" . $row1['years_of_experience'] . "';
+                    document.getElementById('active').value = '" . $row1['is_active'] . "';
+            </script>";
+    ?>
 </body>
 
 <!-- Mirrored from templates.iqonic.design/product/qompac-ui/html/dist/dashboard/app/user-add.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 21 Oct 2023 23:57:48 GMT -->

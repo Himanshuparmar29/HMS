@@ -11,6 +11,7 @@ $email = $_POST["email"];
 $pno = $_POST["pno"];
 $city = $_POST["city"];
 $username = $_POST["uname"];
+$mNum=$_POST["mobno"];
 $doctor_specialization = $_POST["doctor-specializations"];
 $doctor_job_titles = $_POST["doctor-job-titles"];
 $experience = $_POST["experience"];
@@ -26,7 +27,7 @@ if (!empty($_FILES["profile"]["name"])) {
     if (in_array($fileType, $allowTypes)) {
         if (move_uploaded_file($_FILES["profile"]["tmp_name"], $targetFilePath)) {
             // $sql = "INSERT INTO doctor() values();";
-            $sql="INSERT INTO doctor(doctor_id,password,first_name,last_name,gender,address,city,pincode,email,specialization,current_position,Joining_Date,years_of_experience,img_path) values('$username','$pass','$fname','$lname','$gender','$add','$city','$pno','$email','$doctor_specialization','$doctor_job_titles','$current_date','$experience','$targetFilePath');";
+            $sql="INSERT INTO doctor(doctor_id,password,first_name,last_name,gender,address,city,pincode,phone_number,email,specialization,current_position,Joining_Date,updated_at,years_of_experience,img_path) values('$username','$pass','$fname','$lname','$gender','$add','$city','$pno','$mNum','$email','$doctor_specialization','$doctor_job_titles','$current_date','$current_date','$experience','$targetFilePath');";
             $result = mysqli_query($conn, $sql);
             if (!$result) {
                 echo "Photo upload filed! Try again.";
@@ -52,17 +53,17 @@ if ($flag) {
         }
     }
 }
-if($flag)
-{
-    $num=$_POST["mobno"];
-    foreach($num as $mobno){
-        $sql="INSERT INTO doctor_phone_number(doctor_id,phone_number) values('$username','$mobno')";
-        if(mysqli_query($conn,$sql)===FALSE){
-            echo "Error: " . mysqli_error($conn);
-            $flag=0;
-        }
-    }
-}
+// if($flag)
+// {
+//     $num=$_POST["mobno"];
+//     foreach($num as $mobno){
+//         $sql="INSERT INTO doctor_phone_number(doctor_id,phone_number) values('$username','$mobno')";
+//         if(mysqli_query($conn,$sql)===FALSE){
+//             echo "Error: " . mysqli_error($conn);
+//             $flag=0;
+//         }
+//     }
+// }
 if($flag){
     echo"<h2>Data inserted successfully!</h2>";
 }else{

@@ -1,6 +1,6 @@
-
-
-
+<?php
+session_start();
+?>
 <!doctype html>
 <html lang="en" dir="ltr">
   
@@ -17,30 +17,21 @@
       <link rel="shortcut icon" href="https://templates.iqonic.design/product/qompac-ui/html/dist/assets/images/favicon.ico">
       
       <!-- Library / Plugin Css Build -->
-      <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
-      
-      
-      
-      
-      
-      
-      
-      
-      
+      <link rel="stylesheet" href="../assets/css/core/libs.min.css">
       
       <!-- qompac-ui Design System Css -->
-      <link rel="stylesheet" href="../../assets/css/qompac-ui.minf700.css?v=1.0.1">
+      <link rel="stylesheet" href="../assets/css/qompac-ui.minf700.css?v=1.0.1">
       
       <!-- Custom Css -->
-      <link rel="stylesheet" href="../../assets/css/custom.minf700.css?v=1.0.1">
+      <link rel="stylesheet" href="../assets/css/custom.minf700.css?v=1.0.1">
       <!-- Dark Css -->
-      <link rel="stylesheet" href="../../assets/css/dark.minf700.css?v=1.0.1">
+      <link rel="stylesheet" href="../assets/css/dark.minf700.css?v=1.0.1">
       
       <!-- Customizer Css -->
-      <link rel="stylesheet" href="../../assets/css/customizer.minf700.css?v=1.0.1" >
+      <link rel="stylesheet" href="../assets/css/customizer.minf700.css?v=1.0.1" >
       
       <!-- RTL Css -->
-      <link rel="stylesheet" href="../../assets/css/rtl.minf700.css?v=1.0.1">
+      <link rel="stylesheet" href="../assets/css/rtl.minf700.css?v=1.0.1">
       
       
       
@@ -50,13 +41,7 @@
       <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">  </head>
   <body class=" ">
     <!-- loader Start -->
-    <div id="loading">
-      <div class="loader simple-loader">
-          <div class="loader-body ">
-              <img src="https://templates.iqonic.design/product/qompac-ui/html/dist/assets/images/loader.webp" alt="loader" class="image-loader img-fluid ">
-          </div>
-      </div>
-    </div>
+    <my-loader></my-loader>
     <!-- loader END -->
     <div class="wrapper">
       <section class="login-content overflow-hidden">
@@ -77,18 +62,18 @@
                         <div class="card-body">                          
                            <h2 class="mb-2 text-center">Sign In</h2>
                            <p class="text-center">Login to stay connected.</p>
-                           <form>
+                           <form action="../my_php/check_login.php" method="post">
                               <div class="row">
                                  <div class="col-lg-12">
                                     <div class="form-group">
-                                       <label for="email" class="form-label">Email</label>
-                                       <input type="email" class="form-control" id="email" aria-describedby="email" placeholder="xyz@example.com">
+                                       <label for="email" class="form-label">Username</label>
+                                       <input type="text" class="form-control" id="email" name="uname">
                                     </div>
                                  </div>
                                  <div class="col-lg-12">
                                     <div class="form-group">
                                        <label for="password" class="form-label">Password</label>
-                                       <input type="password" class="form-control" id="password" aria-describedby="password" placeholder="xxxx">
+                                       <input type="password" class="form-control" id="password" name="pass" aria-describedby="password" placeholder="xxxxxx">
                                     </div>
                                  </div>
                                  <div class="col-lg-12 d-flex justify-content-between">
@@ -129,13 +114,13 @@
                </div>
             </div>
             <div class="col-lg-6 d-lg-block d-none bg-primary p-0  overflow-hidden">
-               <img src="../../assets/images/auth/01.png" class="img-fluid gradient-main" alt="images" loading="lazy" >
+               <img src="../assets/images/auth/01.png" class="img-fluid gradient-main" alt="images" loading="lazy" >
             </div>
          </div>
       </section>
     </div>
     <!-- Library Bundle Script -->
-    <script src="../../assets/js/core/libs.min.js"></script>
+    <script src="../assets/js/core/libs.min.js"></script>
     <!-- Plugin Scripts -->
     
     
@@ -147,29 +132,28 @@
     
     
     <!-- Slider-tab Script -->
-    <script src="../../assets/js/plugins/slider-tabs.js"></script>
-    
-    
-    
-    
+    <script src="../assets/js/plugins/slider-tabs.js"></script>
     
     <!-- Lodash Utility -->
-    <script src="../../assets/vendor/lodash/lodash.min.js"></script>
+    <script src="../assets/vendor/lodash/lodash.min.js"></script>
     <!-- Utilities Functions -->
-    <script src="../../assets/js/iqonic-script/utility.min.js"></script>
+    <script src="../assets/js/iqonic-script/utility.min.js"></script>
     <!-- Settings Script -->
-    <script src="../../assets/js/iqonic-script/setting.min.js"></script>
+    <script src="../assets/js/iqonic-script/setting.min.js"></script>
     <!-- Settings Init Script -->
-    <script src="../../assets/js/setting-init.js"></script>
+    <script src="../assets/js/setting-init.js"></script>
     <!-- External Library Bundle Script -->
-    <script src="../../assets/js/core/external.min.js"></script>
+    <script src="../assets/js/core/external.min.js"></script>
     <!-- Widgetchart Script -->
-    <script src="../../assets/js/charts/widgetchartsf700.js?v=1.0.1" defer></script>
+    <script src="../assets/js/charts/widgetchartsf700.js?v=1.0.1" defer></script>
     <!-- Dashboard Script -->
-    <script src="../../assets/js/charts/dashboardf700.js?v=1.0.1" defer></script>
+    <script src="../assets/js/charts/dashboardf700.js?v=1.0.1" defer></script>
     <!-- qompacui Script -->
-    <script src="../../assets/js/qompac-uif700.js?v=1.0.1" defer></script>
-    <script src="../../assets/js/sidebarf700.js?v=1.0.1" defer></script>
+    <script src="../assets/js/qompac-uif700.js?v=1.0.1" defer></script>
+    <script src="../assets/js/sidebarf700.js?v=1.0.1" defer></script>
+
+    <!-- My script -->
+   <script src="../my_js/header_footer.js"></script>
     
   </body>
 

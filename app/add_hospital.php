@@ -71,110 +71,34 @@
         <div class="content-inner container-fluid pb-0" id="page_layout">
             <div>
                 <div class="row">
-                    <form id="fm" action="../my_php/user_data_insert.php" method="post" enctype="multipart/form-data"
-                        onsubmit="return validateForm()">
-                        <div class="col-xl-3 col-lg-4" id="left-div">
+                    <form id="fm" action="../my_php/hospital_data_insert.php" method="post" enctype="multipart/form-data"
+                        >
+                        
+                        <div class="col-xl-9 col-lg-8" id="right-div" style="margin-left:200px;">
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between">
                                     <div class="header-title">
-                                        <h4 class="card-title">Add New User</h4>
+                                        <h4 class="card-title">New Hospital Information</h4>
                                     </div>
                                 </div>
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <div class="profile-img-edit position-relative">
-                                            <img src="<?php echo "http://" . $_SERVER['SERVER_NAME'] . "/Compac-admin/assets/images/avatars/01.png" ?>"
-                                                alt="profile-pic"
-                                                class="theme-color-default-img profile-pic rounded avatar-100"
-                                                loading="lazy">
-                                            <label for="upload">
-                                                <div class="upload-icone bg-primary">
-                                                    <svg class="upload-button icon-14" width="14" height="14"
-                                                        viewBox="0 0 24 24">
-                                                        <path fill="#ffffff"
-                                                            d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
-                                                    </svg>
-                                                </div>
-                                            </label>
-                                            <input class="file-upload" type="file" id="upload" name="profile"
-                                                style="display: none; visibility: none;">
-                                        </div>
-                                        <div class="img-extension mt-3">
-                                            <div class="d-inline-block align-items-center">
-                                                <span>Only</span>
-                                                <a href="javascript:void(0);">.jpg</a>
-                                                <a href="javascript:void(0);">.png</a>
-                                                <a href="javascript:void(0);">.jpeg</a>
-                                                <span>allowed</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-label">Qualifications:</div>
-                                    <div class="form-group" id="doctor-qualifications">
-                                        <input type="text" name="qualifications[]" id="qualifications0"
-                                            class="selectpicker form-control" placeholder="Enter qualification"
-                                            required />
-                                    </div>
-                                    <button type="button" id="addQualifications">Add Qualifications</button>
-                                    <div class="form-group">
-                                        <label class="form-label" for="doctor-specializations">Specialization:</label>
-                                        <input name="doctor-specializations" id="doctor-specializations"
-                                            class="selectpicker form-control" required />
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label" for="doctor-job-titles">Current Position:</label>
-                                        <input name="doctor-job-titles" id="doctor-job-titles"
-                                            class="selectpicker form-control" data-style="py-0" />
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label" for="experience">Years Of Experience:</label>
-                                        <input type="number" name="experience" id="experience"
-                                            class="selectpicker form-control">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-9 col-lg-8" id="right-div">
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-between">
-                                    <div class="header-title">
-                                        <h4 class="card-title">New User Information</h4>
-                                    </div>
-                                </div>
-
                                 <div class="card-body">
                                     <div class="new-user-info">
 
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <label class="form-label" for="fname">First Name:</label>
-                                                <input type="text" class="form-control" id="fname" name="fname"
-                                                    placeholder="First Name">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="lname">Last Name:</label>
-                                                <input type="text" class="form-control" id="lname" name="lname"
-                                                    placeholder="Last Name">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="gender">Select Gender:</label>
-                                                <select name="gender" id="gender" class="form-control" required>
-                                                    <option value="" disabled selected>Select Gender</option>
-                                                    <option value="male">Male</option>
-                                                    <option value="female">Female</option>
-                                                    <option value="other">Other</option>
-                                                </select>
+                                                <label class="form-label" for="name">Name:</label>
+                                                <input type="text" class="form-control" id="name" name="name"
+                                                    placeholder="Name">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label class="form-label" for="add">Address:</label>
                                                 <input type="text" class="form-control" id="add" name="add"
                                                     placeholder="Address">
                                             </div>
-                                            <div class="form-group col-md-6" id="nomcontainer">
+                                            <div class="form-group col-md-6">
                                                 <label class="form-label" for="mobno">Mobile Number:</label>
                                                 <input type="text" class="form-control" id="mobno" name="mobno"
-                                                    placeholder=" Enter Mobile Number">
+                                                    placeholder="Enter Mobile Number" maxlength="10">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label class="form-label" for="email">Email:</label>
@@ -186,7 +110,7 @@
                                                 <input type="text" class="form-control" id="pno" name="pno"
                                                     placeholder="Pin Code">
                                             </div>
-                                            <div class="form-group col-md-12">
+                                            <div class="form-group col-md-6">
                                                 <label class="form-label" for="city">Town/City:</label>
                                                 <input type="text" class="form-control" id="city" name="city"
                                                     placeholder="Town/City">
@@ -212,7 +136,7 @@
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary"
-                                            onclick="return validateForm()">Add New User</button>
+                                        onclick="return validateForm()">Add New User</button>
 
                                     </div>
                                 </div>
@@ -685,9 +609,6 @@
     <!-- qompacui Script -->
     <script src="../assets/js/qompac-uif700.js?v=1.0.1" defer></script>
     <script src="../assets/js/sidebarf700.js?v=1.0.1" defer></script>
-
-    <!-- My script -->
-    <script src="../my_js/my_script_for_add_user.js" defer></script>
     <!-- Header -->
     <script src="../my_js/header_footer.js"></script>
     <script>
@@ -695,11 +616,9 @@
             const form = document.getElementById('fm');
 
             // Getting values and trimming
-            const fname = form.fname.value.trim();
-            const lname = form.lname.value.trim();
-            const gender = form.gender.value.trim();
+            const name = form.name.value.trim();
             const address = form.add.value.trim();
-            const mobile = form.mobno0.value.trim();
+            const mobile = form.mobno.value.trim();
             const email = form.email.value.trim();
             const pincode = form.pno.value.trim();
             const city = form.city.value.trim();
@@ -708,7 +627,7 @@
             const repeatPassword = form.rpass.value.trim();
 
             // Check if all fields are filled
-            if ([fname, lname, gender, address, mobile, email, pincode, city, username, password, repeatPassword].includes('')) {
+            if ([name, address, mobile, email, pincode, city, username, password, repeatPassword].includes('')) {
                 alert('All fields are required');
                 return false;
             }
@@ -722,12 +641,12 @@
             }
 
             // Mobile number validation
-            const mobileRegex = /^[0-9]{10}$/;
-            if (!mobileRegex.test(mobile)) {
-                alert('Please enter a valid 10-digit mobile number');
-                form.mobno0.focus();
-                return false;
-            }
+            // const mobileRegex = /^[0-9]{10}$/;
+            // if (!mobileRegex.test(mobile)) {
+            //     alert('Please enter a valid 10-digit mobile number');
+            //     form.mobno.focus();
+            //     return false;
+            // }
 
             // Username length validation
             if (username.length < 6) {
