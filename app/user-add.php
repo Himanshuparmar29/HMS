@@ -77,7 +77,7 @@
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between">
                                     <div class="header-title">
-                                        <h4 class="card-title">Add New User</h4>
+                                        <h4 class="card-title">Add New Doctor</h4>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -139,7 +139,7 @@
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between">
                                     <div class="header-title">
-                                        <h4 class="card-title">New User Information</h4>
+                                        <h4 class="card-title">New Doctor Information</h4>
                                     </div>
                                 </div>
 
@@ -212,7 +212,7 @@
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary"
-                                            onclick="return validateForm()">Add New User</button>
+                                            onclick="return validateForm()">Add New Doctor</button>
 
                                     </div>
                                 </div>

@@ -1,3 +1,8 @@
+<?php
+session_start();
+$_SESSION['request_id']=$_REQUEST['request_id'];
+$_SESSION['hospital_id']=$_REQUEST['hospital_id'];
+?>
 <!doctype html>
 <html lang="en" dir="ltr">
 
@@ -71,82 +76,40 @@
         <div class="content-inner container-fluid pb-0" id="page_layout">
             <div>
                 <div class="row">
-                    <form id="fm" action="../my_php/hospital_data_insert.php" method="post" enctype="multipart/form-data"
-                        >
-                        
+                    <form id="fm" action="../my_php/operation_data_insert.php" method="post"
+                        enctype="multipart/form-data">
+
                         <div class="col-xl-9 col-lg-8" id="right-div" style="margin-left:200px;">
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between">
                                     <div class="header-title">
-                                        <h4 class="card-title">New Hospital Information</h4>
+                                        <h4 class="card-title">Assing Doctor</h4>
                                     </div>
                                 </div>
                                 <div class="card-body">
                                     <div class="new-user-info">
 
                                         <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="name">Name:</label>
-                                                <input type="text" class="form-control" id="name" name="name"
-                                                    placeholder="Name">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="htype">Type:</label>
-                                                <input type="text" class="form-control" id="htype" name="htype"
-                                                    placeholder="Enter the Type">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="add">Address:</label>
-                                                <input type="text" class="form-control" id="add" name="add"
-                                                    placeholder="Address">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="mobno">Mobile Number:</label>
-                                                <input type="text" class="form-control" id="mobno" name="mobno"
-                                                    placeholder="Enter Mobile Number" maxlength="10">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="email">Email:</label>
-                                                <input type="email" class="form-control" id="email" name="email"
-                                                    placeholder="Email">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="pno">Pin Code:</label>
-                                                <input type="text" class="form-control" id="pno" name="pno"
-                                                    placeholder="Pin Code">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="city">Town/City:</label>
-                                                <input type="text" class="form-control" id="city" name="city"
-                                                    placeholder="Town/City">
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <h5 class="mb-3">Security</h5>
-                                        <div class="row">
-                                            <div class="form-group col-md-12">
-                                                <label class="form-label" for="uname">User Name:</label>
-                                                <input type="text" class="form-control" name="uname" id="uname"
-                                                    placeholder="User Name">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="pass">Password:</label>
-                                                <input type="password" class="form-control" name="pass"
-                                                    placeholder="Password">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="rpass">Repeat Password:</label>
-                                                <input type="password" class="form-control" id="rpass"
-                                                    placeholder="Repeat Password ">
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary"
-                                        onclick="return validateForm()">Add New User</button>
+                                            <div id="docContainer">
+                                                <div class="form-group col-md-6">
+                                                    <label for="cat">Select Category:</label>
+                                                    <select name="cat" id="cat" class="form-control" required>
+                                                        
+                                                        
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="doct">Select Doctor:</label>
+                                                    <select name="doct" id="doct" class="form-control" required>
+                                                    <option value="" disabled selected>Select Doctor</option>   
+                                                    </select>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Assing</button>
 
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
                     </form>
                 </div>
             </div>
@@ -616,69 +579,56 @@
     <script src="../assets/js/sidebarf700.js?v=1.0.1" defer></script>
     <!-- Header -->
     <script src="../my_js/header_footer.js"></script>
-    <script>
-        function validateForm() {
-            const form = document.getElementById('fm');
 
-            // Getting values and trimming
-            const name = form.name.value.trim();
-            const address = form.add.value.trim();
-            const mobile = form.mobno.value.trim();
-            const email = form.email.value.trim();
-            const pincode = form.pno.value.trim();
-            const city = form.city.value.trim();
-            const username = form.uname.value.trim();
-            const type=form.htypt.value.trim();
-            const password = form.pass.value.trim();
-            const repeatPassword = form.rpass.value.trim();
-
-            // Check if all fields are filled
-            if ([name, address, mobile, email, pincode, type,city, username, password, repeatPassword].includes('')) {
-                alert('All fields are required');
-                return false;
-            }
-
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert('Please enter a valid email address');
-                form.email.focus();
-                return false;
-            }
-
-            // Mobile number validation
-            // const mobileRegex = /^[0-9]{10}$/;
-            // if (!mobileRegex.test(mobile)) {
-            //     alert('Please enter a valid 10-digit mobile number');
-            //     form.mobno.focus();
-            //     return false;
-            // }
-
-            // Username length validation
-            if (username.length < 6) {
-                alert('Username must be at least 6 characters long');
-                form.uname.focus();
-                return false;
-            }
-
-            // Password length validation
-            if (password.length < 6) {
-                alert('Password must be at least 6 characters long');
-                form.pass.focus();
-                return false;
-            }
-
-            // Password match validation
-            if (password !== repeatPassword) {
-                alert('Passwords do not match');
-                form.rpass.focus();
-                return false;
-            }
-
-            return true;
+    <!-- Custom Script -->
+    <!-- <script>
+        let cat = document.getElementById('cat');
+        let doct = document.getElementById('doct');
+        
+        cat.addEventListener("change",function(){
+            doct.innerHTML="";
+            let catVal=cat.value;
+            let temp = `
+            <option value="" disabled selected>Select Doctor</option>
+                                                    <?php
+                                                    // $conn = mysqli_connect("localhost", "root", "", "hms");
+                                                    // $sql = "SELECT * FROM doctor where 	current_position=;";
+                                                    // $result = mysqli_query($conn, $sql);
+                                                    // while ($row = mysqli_fetch_assoc($result)) {
+                                                    //     echo "<option value='" . $row['doctor_id'] . "'>" . $row['first_name'] . " " . $row['last_name'] . "</option>";
+                                                    // }
+                                                    ?>
+             `;
+        })
+     </script> -->
+     <script>
+       $(document).ready(function(){
+        function loadData(type,cat){
+            $.ajax({
+                url:"fetch_catData.php",
+                type : "POST",
+                data : {type:type,id : cat},
+                success : function(data){
+                    if(type=="doct"){
+                        $("#doct").html(data);
+                    }else{
+                        $("#cat").append(data);
+                    }
+                    
+                }
+            });
         }
+        loadData();
+        $("#cat").on("change",function(){
+            let cat=$("#cat").val();
+            loadData("doct",cat);
+        })
+       });
 
-    </script>
+       document.getElementById('addDoct').addEventListener("click",function(){
+        alert("hello");
+       })
+     </script>
 </body>
 
 <!-- Mirrored from templates.iqonic.design/product/qompac-ui/html/dist/dashboard/app/user-add.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 21 Oct 2023 23:57:48 GMT -->

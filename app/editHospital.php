@@ -110,6 +110,11 @@ $_SESSION['username'] = $_REQUEST['userid'];
                                                     placeholder="First Name">
                                             </div>
                                             <div class="form-group col-md-6">
+                                                <label class="form-label" for="htype">Type:</label>
+                                                <input type="text" class="form-control" id="htype" name="htype"
+                                                    placeholder="Enter the Type">
+                                            </div>
+                                            <div class="form-group col-md-6">
                                                 <label class="form-label" for="add">Address:</label>
                                                 <input type="text" class="form-control" id="add" name="add"
                                                     placeholder="Address">
@@ -702,6 +707,7 @@ $_SESSION['username'] = $_REQUEST['userid'];
                     document.getElementById('email').value = '" . $row['email'] . "';
                     document.getElementById('add').value = '" . $row['address'] . "';
                     document.getElementById('mobno').value = '" . $row['phone_number'] . "';
+                    document.getElementById('htype').value = '" . $row['type'] . "';
                     document.getElementById('pno').value = '" . $row['pincode'] . "';
                     document.getElementById('city').value = '" . $row['city'] . "';
                     document.getElementById('pass').value = '" . $row['password'] . "';

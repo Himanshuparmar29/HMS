@@ -1,0 +1,10 @@
+#fm{
+    display: flex;
+}
+#right-div{
+    margin-left: 10px;
+    margin-right: 20px;
+}
+#left-div{
+    margin-right: 50px;
+}

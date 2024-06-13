@@ -71,14 +71,13 @@
         <div class="content-inner container-fluid pb-0" id="page_layout">
             <div>
                 <div class="row">
-                    <form id="fm" action="../my_php/hospital_data_insert.php" method="post" enctype="multipart/form-data"
-                        >
-                        
+                    <form id="fm" action="add_ope-req.php" method="post" enctype="multipart/form-data">
+
                         <div class="col-xl-9 col-lg-8" id="right-div" style="margin-left:200px;">
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between">
                                     <div class="header-title">
-                                        <h4 class="card-title">New Hospital Information</h4>
+                                        <h4 class="card-title">New Operation Request</h4>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -86,62 +85,20 @@
 
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <label class="form-label" for="name">Name:</label>
-                                                <input type="text" class="form-control" id="name" name="name"
-                                                    placeholder="Name">
+                                                <label class="form-label" for="des">Description:</label>
+                                                <input type="text-arear" class="form-control" id="des" name="des"
+                                                    placeholder="Enter Description">
                                             </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="htype">Type:</label>
-                                                <input type="text" class="form-control" id="htype" name="htype"
-                                                    placeholder="Enter the Type">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="add">Address:</label>
-                                                <input type="text" class="form-control" id="add" name="add"
-                                                    placeholder="Address">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="mobno">Mobile Number:</label>
-                                                <input type="text" class="form-control" id="mobno" name="mobno"
-                                                    placeholder="Enter Mobile Number" maxlength="10">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="email">Email:</label>
-                                                <input type="email" class="form-control" id="email" name="email"
-                                                    placeholder="Email">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="pno">Pin Code:</label>
-                                                <input type="text" class="form-control" id="pno" name="pno"
-                                                    placeholder="Pin Code">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="city">Town/City:</label>
-                                                <input type="text" class="form-control" id="city" name="city"
-                                                    placeholder="Town/City">
+                                            <div class="form-group col-md-6" id="priority">
+                                            <div class="form-label">Priority:</div>
+                                                <select name="pri" id="pri" class="form-control" required>
+                                                    <option value="high" selected>High</option>
+                                                    <option value="medium">Medium</option>
+                                                    <option value="low">Low</option>
+                                                </select>
                                             </div>
                                         </div>
-                                        <hr>
-                                        <h5 class="mb-3">Security</h5>
-                                        <div class="row">
-                                            <div class="form-group col-md-12">
-                                                <label class="form-label" for="uname">User Name:</label>
-                                                <input type="text" class="form-control" name="uname" id="uname"
-                                                    placeholder="User Name">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="pass">Password:</label>
-                                                <input type="password" class="form-control" name="pass"
-                                                    placeholder="Password">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="rpass">Repeat Password:</label>
-                                                <input type="password" class="form-control" id="rpass"
-                                                    placeholder="Repeat Password ">
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary"
-                                        onclick="return validateForm()">Add New User</button>
+                                        <button type="submit" class="btn btn-primary">Request</button>
 
                                     </div>
                                 </div>
@@ -628,12 +585,12 @@
             const pincode = form.pno.value.trim();
             const city = form.city.value.trim();
             const username = form.uname.value.trim();
-            const type=form.htypt.value.trim();
+            const type = form.htypt.value.trim();
             const password = form.pass.value.trim();
             const repeatPassword = form.rpass.value.trim();
 
             // Check if all fields are filled
-            if ([name, address, mobile, email, pincode, type,city, username, password, repeatPassword].includes('')) {
+            if ([name, address, mobile, email, pincode, type, city, username, password, repeatPassword].includes('')) {
                 alert('All fields are required');
                 return false;
             }

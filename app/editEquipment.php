@@ -1,3 +1,8 @@
+<?php
+session_start();
+$_SESSION['equipmentId'] = $_REQUEST['userid'];
+?>
+
 <!doctype html>
 <html lang="en" dir="ltr">
 
@@ -71,16 +76,30 @@
         <div class="content-inner container-fluid pb-0" id="page_layout">
             <div>
                 <div class="row">
-                    <form id="fm" action="../my_php/hospital_data_insert.php" method="post" enctype="multipart/form-data"
-                        >
-                        
+                    <?php
+                    if (isset($_SESSION['error'])) {
+                        echo "<div class='alert alert-danger' role='alert'>" . $_SESSION['error'] . "</div>";
+                        unset($_SESSION['error']);
+                    }
+                    $conn = mysqli_connect("localhost", "root", "", "hms");
+                    if (!$conn) {
+                        die("Connection failed: " . mysqli_connect_error());
+                    }
+                    $username = $_REQUEST["userid"];
+                    $sql = "SELECT * FROM medical_equipments WHERE equipment_id='$username'";
+                    $result = mysqli_query($conn, $sql);
+                    $row = mysqli_fetch_assoc($result);
+                    ?>
+                    <form id="fm" action="../my_php/equipment_update_data.php" method="post"
+                        enctype="multipart/form-data">
                         <div class="col-xl-9 col-lg-8" id="right-div" style="margin-left:200px;">
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between">
                                     <div class="header-title">
-                                        <h4 class="card-title">New Hospital Information</h4>
+                                        <h4 class="card-title">Update Equipment Information</h4>
                                     </div>
                                 </div>
+
                                 <div class="card-body">
                                     <div class="new-user-info">
 
@@ -91,58 +110,31 @@
                                                     placeholder="Name">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label class="form-label" for="htype">Type:</label>
-                                                <input type="text" class="form-control" id="htype" name="htype"
-                                                    placeholder="Enter the Type">
+                                                <label class="form-label" for="des">Description:</label>
+                                                <input type="text" class="form-control" id="des" name="des"
+                                                    placeholder="Description">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label class="form-label" for="add">Address:</label>
-                                                <input type="text" class="form-control" id="add" name="add"
-                                                    placeholder="Address">
+                                                <label class="form-label" for="cat">Category:</label>
+                                                <input type="text" class="form-control" id="cat" name="cat"
+                                                    placeholder="Enter Category" >
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label class="form-label" for="mobno">Mobile Number:</label>
-                                                <input type="text" class="form-control" id="mobno" name="mobno"
-                                                    placeholder="Enter Mobile Number" maxlength="10">
+                                                <label class="form-label" for="qun">Total Quantity:</label>
+                                                <input type="number" class="form-control" id="qun" name="qun"
+                                                    placeholder="Enter Total Quantity">
                                             </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="email">Email:</label>
-                                                <input type="email" class="form-control" id="email" name="email"
-                                                    placeholder="Email">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="pno">Pin Code:</label>
-                                                <input type="text" class="form-control" id="pno" name="pno"
-                                                    placeholder="Pin Code">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="city">Town/City:</label>
-                                                <input type="text" class="form-control" id="city" name="city"
-                                                    placeholder="Town/City">
+                                            <div class="form-label">Active Status:</div>
+                                            <div class="form-group" id="doctor-qualifications">
+                                                <select name="active" id="active" class="form-control" required>
+                                                    <option value="yes">active</option>
+                                                    <option value="no">Inactive</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <hr>
-                                        <h5 class="mb-3">Security</h5>
-                                        <div class="row">
-                                            <div class="form-group col-md-12">
-                                                <label class="form-label" for="uname">User Name:</label>
-                                                <input type="text" class="form-control" name="uname" id="uname"
-                                                    placeholder="User Name">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="pass">Password:</label>
-                                                <input type="password" class="form-control" name="pass"
-                                                    placeholder="Password">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="rpass">Repeat Password:</label>
-                                                <input type="password" class="form-control" id="rpass"
-                                                    placeholder="Repeat Password ">
-                                            </div>
-                                        </div>
                                         <button type="submit" class="btn btn-primary"
-                                        onclick="return validateForm()">Add New User</button>
-
+                                        >Update Equipment</button>
                                     </div>
                                 </div>
                             </div>
@@ -590,7 +582,38 @@
         </svg>
     </a>
     <!-- Live Customizer end -->
+    <script>
+        function validateForm() {
+            const form = document.getElementById('fm');
 
+            // Getting values and trimming
+            const name = form.name.value.trim();
+            const eid = form.eid.value.trim();
+            const description= form.des.value.trim();
+            const category= form.cat.value.trim();
+            const total_quantity= form.qun.value.trim();
+
+            // Check if all fields are filled
+            if ([name, eid,description,category,total_quantity].includes('')) {
+                alert('All fields are required');
+                return false;
+            }
+            if (eid.length < 6) {
+                alert('Username must be at least 6 characters long');
+                form.uname.focus();
+                return false;
+            }
+
+            // Password length validation
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters long');
+                form.pass.focus();
+                return false;
+            }
+            return true;
+        }
+
+    </script>
     <!-- Library Bundle Script -->
     <script src="../assets/js/core/libs.min.js"></script>
     <!-- Plugin Scripts -->
@@ -614,71 +637,18 @@
     <!-- qompacui Script -->
     <script src="../assets/js/qompac-uif700.js?v=1.0.1" defer></script>
     <script src="../assets/js/sidebarf700.js?v=1.0.1" defer></script>
+
     <!-- Header -->
     <script src="../my_js/header_footer.js"></script>
-    <script>
-        function validateForm() {
-            const form = document.getElementById('fm');
-
-            // Getting values and trimming
-            const name = form.name.value.trim();
-            const address = form.add.value.trim();
-            const mobile = form.mobno.value.trim();
-            const email = form.email.value.trim();
-            const pincode = form.pno.value.trim();
-            const city = form.city.value.trim();
-            const username = form.uname.value.trim();
-            const type=form.htypt.value.trim();
-            const password = form.pass.value.trim();
-            const repeatPassword = form.rpass.value.trim();
-
-            // Check if all fields are filled
-            if ([name, address, mobile, email, pincode, type,city, username, password, repeatPassword].includes('')) {
-                alert('All fields are required');
-                return false;
-            }
-
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert('Please enter a valid email address');
-                form.email.focus();
-                return false;
-            }
-
-            // Mobile number validation
-            // const mobileRegex = /^[0-9]{10}$/;
-            // if (!mobileRegex.test(mobile)) {
-            //     alert('Please enter a valid 10-digit mobile number');
-            //     form.mobno.focus();
-            //     return false;
-            // }
-
-            // Username length validation
-            if (username.length < 6) {
-                alert('Username must be at least 6 characters long');
-                form.uname.focus();
-                return false;
-            }
-
-            // Password length validation
-            if (password.length < 6) {
-                alert('Password must be at least 6 characters long');
-                form.pass.focus();
-                return false;
-            }
-
-            // Password match validation
-            if (password !== repeatPassword) {
-                alert('Passwords do not match');
-                form.rpass.focus();
-                return false;
-            }
-
-            return true;
-        }
-
-    </script>
+    <!-- Custom Script -->
+    <?php echo "<script>
+                    document.getElementById('name').value = '" . $row['name'] . "';
+                    document.getElementById('des').value = '" . $row['description'] . "';
+                    document.getElementById('cat').value = '" . $row['category'] . "';
+                    document.getElementById('qun').value = '".$row['total_count']."';
+                    document.getElementById('active').value = '" . $row['is_active'] . "';
+            </script>";
+    ?>
 </body>
 
 <!-- Mirrored from templates.iqonic.design/product/qompac-ui/html/dist/dashboard/app/user-add.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 21 Oct 2023 23:57:48 GMT -->
