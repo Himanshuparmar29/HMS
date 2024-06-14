@@ -145,6 +145,42 @@ $row = mysqli_fetch_assoc($result);
                      </div>
                   </div>
                </div>
+               <div class="card">
+                  <div class="card-header">
+                     <div class="header-title">
+                        <h4 class="card-title">Ongoing Operations Details</h4>
+                     </div>
+                  </div>
+                  <div class="card-body">
+                     <div class="custom-table-effect table-responsive  border rounded">
+                        <table class="table mb-0" id="datatable" data-toggle="data-table">
+                           <thead>
+                              <tr class="bg-white">
+                                 <th scope="col">Hospital Name</th>
+                                 <th scope="col">Operation Description</th>
+                                 <th scope="col">Phone Number</th>
+                                 <th scope="col">Address</th>
+                                 <th scope="col">Action</th>
+                                 </tr>
+                           </thead>
+                           <tbody>
+                                    <?php
+                                    while($row1=mysqli_fetch_assoc($result1)){
+                                       echo "<tr>";
+                                       echo "<td>".$row1['hospital_name']."</td>";
+                                       echo "<td>".$row1['Description']."</td>";
+                                       echo "<td>".$row1['phone_number']."</td>";
+                                       echo "<td>".$row1['address'].",".$row1['city'].",".$row1['pincode']."</td>";
+                                       echo "<td><a href='../operation/ope_start.php?request_id=".$row1['request_id']."&ope_id=".$row1['ope_id']."'><button type='button' class='btn btn-primary rounded-pill mt-2'>Start</button></a></td>";
+                                       echo "</tr>";
+                                    }
+                                    ?>
+                           </tbody>
+                        </table>
+
+                     </div>
+                  </div>
+               </div>
                <!-- <div class="card">
                                 <div class="card-header">
                                     <div class="header-title">

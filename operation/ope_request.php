@@ -1,3 +1,7 @@
+<?php 
+session_start();
+
+?>
 <!doctype html>
 <html lang="en" dir="ltr">
 
@@ -82,7 +86,6 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="new-user-info">
-
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <label class="form-label" for="des">Description:</label>
@@ -90,7 +93,7 @@
                                                     placeholder="Enter Description">
                                             </div>
                                             <div class="form-group col-md-6" id="priority">
-                                            <div class="form-label">Priority:</div>
+                                                <div class="form-label">Priority:</div>
                                                 <select name="pri" id="pri" class="form-control" required>
                                                     <option value="high" selected>High</option>
                                                     <option value="medium">Medium</option>
@@ -98,8 +101,77 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <hr>
+                                        <h5 class="mb-3">Patient Information</h5>
+                                        <div class="row">
+                                            <div class="form-group col-md-3">
+                                                <label class="form-label" for="search-box">Search Patient:</label>
+                                                <input type="search" class="form-control" name="search" id="search-box"
+                                                    placeholder="Enter Patient Id">
+                                            </div>
+                                            <div class="form-group col-md-3" style="display:flex; margin-top: 20px; ">
+                                                <button type="button" class="btn btn-primary rounded-pill mt-2"
+                                                    style="height:40px;" id="search-btn">Search</button>
+                                            </div>
+                                        </div>
+                                        <div class="row" id="pt-container">
+                                            <div class="form-group col-md-6">
+                                                <label class="form-label" for="pid">Patient Id:</label>
+                                                <input type="text" class="form-control" name="pid" id="pid"
+                                                    placeholder="Enter Patient Id">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label class="form-label" for="pname">Full Name:</label>
+                                                <input type="text" class="form-control" name="pname" id="pname"
+                                                    placeholder="Enter Patient Name">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="gender">Gender:</label>
+                                                <select class="form-control" id="gender" name="gender" required>
+                                                    <option value="" disabled selected>Select Gender</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="contact">Contact Number:</label>
+                                                <input type="text" class="form-control" id="contact" name="contact"
+                                                    placeholder="Enter Contact Number " required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="email">Email Address:</label>
+                                                <input type="email" class="form-control" id="email" name="email"
+                                                    placeholder="Enter Email Address">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="address">Address:</label>
+                                                <input type="text" class="form-control" id="address" name="address"
+                                                    placeholder="Enter Address" required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="allergies">Allergies:</label>
+                                                <input type="text" class="form-control" id="allergies"
+                                                    placeholder="Enter Allergies" name="allergies">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="medications">Current Medications:</label>
+                                                <input type="text" class="form-control" id="medications"
+                                                    placeholder="Enter Current Medications" name="medications">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="medicalHistory">Past Medical History:</label>
+                                                <textarea class="form-control" id="medicalHistory"
+                                                    placeholder="Enter Past Medical History"
+                                                    name="medical_history"></textarea>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="symptoms">Current Symptoms/Reason for Visit:</label>
+                                                <textarea class="form-control" id="symptoms" name="symptoms"
+                                                    placeholder="Enter Current Symptoms/Reason for Visit"></textarea required></textarea>
+                                            </div>
+                                        </div>
                                         <button type="submit" class="btn btn-primary">Request</button>
-
                                     </div>
                                 </div>
                             </div>
@@ -574,67 +646,22 @@
     <!-- Header -->
     <script src="../my_js/header_footer.js"></script>
     <script>
-        function validateForm() {
-            const form = document.getElementById('fm');
-
-            // Getting values and trimming
-            const name = form.name.value.trim();
-            const address = form.add.value.trim();
-            const mobile = form.mobno.value.trim();
-            const email = form.email.value.trim();
-            const pincode = form.pno.value.trim();
-            const city = form.city.value.trim();
-            const username = form.uname.value.trim();
-            const type = form.htypt.value.trim();
-            const password = form.pass.value.trim();
-            const repeatPassword = form.rpass.value.trim();
-
-            // Check if all fields are filled
-            if ([name, address, mobile, email, pincode, type, city, username, password, repeatPassword].includes('')) {
-                alert('All fields are required');
-                return false;
+        $("#search-btn").on("click",function(){
+            if($("#search-box").val()==''){
+                alert("Please enter a search Id");
+                return;
             }
-
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert('Please enter a valid email address');
-                form.email.focus();
-                return false;
-            }
-
-            // Mobile number validation
-            // const mobileRegex = /^[0-9]{10}$/;
-            // if (!mobileRegex.test(mobile)) {
-            //     alert('Please enter a valid 10-digit mobile number');
-            //     form.mobno.focus();
-            //     return false;
-            // }
-
-            // Username length validation
-            if (username.length < 6) {
-                alert('Username must be at least 6 characters long');
-                form.uname.focus();
-                return false;
-            }
-
-            // Password length validation
-            if (password.length < 6) {
-                alert('Password must be at least 6 characters long');
-                form.pass.focus();
-                return false;
-            }
-
-            // Password match validation
-            if (password !== repeatPassword) {
-                alert('Passwords do not match');
-                form.rpass.focus();
-                return false;
-            }
-
-            return true;
-        }
-
+            let search_term=$("#search-box").val();
+            $.ajax({
+                url:"fetch_patient.php",
+                type:"POST",
+                data:{search:search_term},
+                success:function(data){
+                    $("#pt-container").html(data);
+                }
+            });
+        });
+        document.getElementById("search-btn")
     </script>
 </body>
 

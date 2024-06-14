@@ -123,13 +123,13 @@ $row = mysqli_fetch_assoc($result);
                                     </thead>
                                     <tbody> 
                                         <?php
-                                        $sql1 = "SELECT * FROM ope_request WHERE requested_by='$username'";
-                                        $result1 = mysqli_query($conn, $sql);
-                                        while ($row1 = mysqli_fetch_assoc($result)) {
+                                        $sql1 = "SELECT * FROM ope_request WHERE requested_by='$username' and status='pending' or status='Rejected';";
+                                        $result1 = mysqli_query($conn, $sql1);
+                                        while ($row1 = mysqli_fetch_assoc($result1)) {
                                         ?>
                                             <tr>
                                                 <td><?php echo $row1["request_id"]; ?></td>
-                                                <td><?php echo $row1["description"]; ?></td>
+                                                <td><?php echo $row1["Description"]; ?></td>
                                                 <td><?php echo $row1["status"]; ?></td>
                                                 <td><?php echo $row1["requested_at"]; ?></td>
                                             </tr>
@@ -138,7 +138,6 @@ $row = mysqli_fetch_assoc($result);
                                         ?>
                                     </tbody>
                                 </table>
-
                             </div>
                             <a href="../operation/ope_request.php"><button type="button" class="btn btn-primary rounded-pill mt-2">Make Request</button></a>
                         </div>
