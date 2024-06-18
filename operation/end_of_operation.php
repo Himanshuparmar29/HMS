@@ -1,7 +1,6 @@
 <?php
 session_start();
-$_SESSION['request_id']=$_REQUEST['request_id'];
-$_SESSION['hospital_id']=$_REQUEST['hospital_id'];
+$_SESSION['operation_id'] = $_REQUEST['ope_id'];
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
@@ -76,14 +75,14 @@ $_SESSION['hospital_id']=$_REQUEST['hospital_id'];
         <div class="content-inner container-fluid pb-0" id="page_layout">
             <div>
                 <div class="row">
-                    <form id="fm" action="../my_php/operation_data_insert.php" method="post"
+                    <form id="fm" action="../my_php/payment_data_insert.php" method="post"
                         enctype="multipart/form-data">
 
                         <div class="col-xl-9 col-lg-8" id="right-div" style="margin-left:200px;">
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between">
                                     <div class="header-title">
-                                        <h4 class="card-title">Assing Doctor</h4>
+                                        <h4 class="card-title">Completion of operation</h4>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -92,16 +91,13 @@ $_SESSION['hospital_id']=$_REQUEST['hospital_id'];
                                         <div class="row">
                                             <div id="docContainer">
                                                 <div class="form-group col-md-6">
-                                                    <label for="cat">Select Category:</label>
-                                                    <select name="cat" id="cat" class="form-control" required>
-                                                        
-                                                    </select>
+                                                    <label for="opCharge">Operation Charge :</label>
+                                                    <input type="number" class="form-control" id="opCharge" name="opCharge"
+                                                        required>
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label for="doct">Select Doctor:</label>
-                                                    <select name="doct" id="doct" class="form-control" required>
-                                                    <option value="" disabled selected>Select Doctor</option>   
-                                                    </select>
+                                                    <label for="note">Other Note:</label>
+                                                    <input type="text" class="form-control" id="note" name="note">
                                                 </div>
                                                 <button type="submit" class="btn btn-primary">Assing</button>
 
@@ -109,6 +105,8 @@ $_SESSION['hospital_id']=$_REQUEST['hospital_id'];
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -580,54 +578,6 @@ $_SESSION['hospital_id']=$_REQUEST['hospital_id'];
     <script src="../my_js/header_footer.js"></script>
 
     <!-- Custom Script -->
-    <!-- <script>
-        let cat = document.getElementById('cat');
-        let doct = document.getElementById('doct');
-        
-        cat.addEventListener("change",function(){
-            doct.innerHTML="";
-            let catVal=cat.value;
-            let temp = `
-            <option value="" disabled selected>Select Doctor</option>
-                                                    <?php
-                                                    // $conn = mysqli_connect("localhost", "root", "", "hms");
-                                                    // $sql = "SELECT * FROM doctor where 	current_position=;";
-                                                    // $result = mysqli_query($conn, $sql);
-                                                    // while ($row = mysqli_fetch_assoc($result)) {
-                                                    //     echo "<option value='" . $row['doctor_id'] . "'>" . $row['first_name'] . " " . $row['last_name'] . "</option>";
-                                                    // }
-                                                    ?>
-             `;
-        })
-     </script> -->
-     <script>
-       $(document).ready(function(){
-        function loadData(type,cat){
-            $.ajax({
-                url:"fetch_catData.php",
-                type : "POST",
-                data : {type:type,id : cat},
-                success : function(data){
-                    if(type=="doct"){
-                        $("#doct").html(data);
-                    }else{
-                        $("#cat").append(data);
-                    }
-                    
-                }
-            });
-        }
-        loadData();
-        $("#cat").on("change",function(){
-            let cat=$("#cat").val();
-            loadData("doct",cat);
-        })
-       });
-
-       document.getElementById('addDoct').addEventListener("click",function(){
-        alert("hello");
-       })
-     </script>
 </body>
 
 <!-- Mirrored from templates.iqonic.design/product/qompac-ui/html/dist/dashboard/app/user-add.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 21 Oct 2023 23:57:48 GMT -->

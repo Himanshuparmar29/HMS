@@ -23,7 +23,7 @@
         }
     }
     if($flag==1){
-        $sql="UPDATE operation SET status='in-progress' WHERE operation_id='".$_SESSION['ope_id']."'";
+        $sql="UPDATE operation SET status='in-progress',started_at=now() WHERE operation_id='".$_SESSION['ope_id']."'";
         $result=mysqli_query($conn,$sql);
         if($result){
             echo "<script> alert('Your Task is Start!');

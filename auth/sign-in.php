@@ -9,14 +9,13 @@ session_start();
 <head>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   <title data-setting="app_name" data-rightJoin=" Responsive Bootstrap 5 Admin Dashboard Template">Qompac UI Responsive
-      Bootstrap 5 Admin Dashboard Template</title>
+   <title data-setting="app_name" data-rightJoin=" Responsive Bootstrap 5 Admin Dashboard Template">Jeevanam</title>
    <meta name="description"
-      content="Qompac UI is a revolutionary Bootstrap Admin Dashboard Template and UI Components Library. The Admin Dashboard Template and UI Component features 8 modules.">
+      content="Jeevanam is a revolutionary Bootstrap Admin Dashboard Template and UI Components Library. The Admin Dashboard Template and UI Component features 8 modules.">
    <meta name="keywords"
       content="premium, admin, dashboard, template, bootstrap 5, clean ui, qompac-ui, admin dashboard,responsive dashboard, optimized dashboard, simple auth">
    <meta name="author" content="Iqonic Design">
-   <meta name="DC.title" content="Qompac UI Simple | Responsive Bootstrap 5 Admin Dashboard Template">
+   <meta name="DC.title" content="Jeevanam Simple | Responsive Bootstrap 5 Admin Dashboard Template">
    <!-- Favicon -->
    <link rel="shortcut icon"
       href="https://templates.iqonic.design/product/qompac-ui/html/dist/assets/images/favicon.ico">
@@ -62,10 +61,9 @@ session_start();
                         <path fill-rule="evenodd" clip-rule="evenodd"
                            d="M7.25333 2H22.0444L29.7244 15.2103L22.0444 28.1333H7.25333L0 15.2103L7.25333 2ZM11.2356 9.32316H18.0622L21.3334 15.2103L18.0622 20.9539H11.2356L8.10669 15.2103L11.2356 9.32316Z"
                            fill="currentColor" />
-                        <path d="M23.751 30L13.2266 15.2103H21.4755L31.9999 30H23.751Z" fill="#3FF0B9" />
                      </svg>
                   </div>
-                  <h2 class="logo-title ms-3 mb-0" data-setting="app_name">Qompac UI</h2>
+                  <h2 class="logo-title ms-3 mb-0" data-setting="app_name">Jeevanam</h2>
                </a>
                <div class="row justify-content-center pt-5">
                   <div class="col-md-9">

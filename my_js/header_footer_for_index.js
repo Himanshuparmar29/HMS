@@ -4,9 +4,9 @@ class Header extends HTMLElement {
       <!--Nav Start-->
           <nav class="nav navbar navbar-expand-xl navbar-light iq-navbar">
              <div class="container-fluid navbar-inner">
-                <a href="index.php" class="navbar-brand">
+                <a href="#" class="navbar-brand">
                    
-                   <!--Logo sstart-->
+                   <!--Logo start-->
                    <div class="logo-main">
                        <div class="logo-normal">
                            <svg class="text-primary icon-30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,7 +21,7 @@ class Header extends HTMLElement {
                            </svg>
                        </div>
                    </div>
-                   <!--logo End-->         <h4 class="logo-title d-block d-xl-none" data-setting="app_name">Qompac UI</h4>
+                   <!--logo End-->         <h4 class="logo-title d-block d-xl-none" data-setting="app_name">Jeevanam</h4>
                 </a>
                 <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
                    <i class="icon d-flex">
@@ -36,7 +36,7 @@ class Header extends HTMLElement {
                       <div class="offcanvas-body">
                          <ul class="iq-nav-menu list-unstyled">
                             <li class="nav-item ">
-                               <a class="nav-link menu-arrow justify-content-start active" data-bs-toggle="collapse" href="#homeData" role="button" aria-expanded="false" aria-controls="homeData">
+                               <a class="nav-link menu-arrow justify-content-start active" data-bs-toggle="collapse" href="index.php" role="button" aria-expanded="false" aria-controls="homeData">
                                   <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                      <path d="M9.14373 20.7821V17.7152C9.14372 16.9381 9.77567 16.3067 10.5584 16.3018H13.4326C14.2189 16.3018 14.8563 16.9346 14.8563 17.7152V20.7732C14.8562 21.4473 15.404 21.9951 16.0829 22H18.0438C18.9596 22.0023 19.8388 21.6428 20.4872 21.0007C21.1356 20.3586 21.5 19.4868 21.5 18.5775V9.86585C21.5 9.13139 21.1721 8.43471 20.6046 7.9635L13.943 2.67427C12.7785 1.74912 11.1154 1.77901 9.98539 2.74538L3.46701 7.9635C2.87274 8.42082 2.51755 9.11956 2.5 9.86585V18.5686C2.5 20.4637 4.04738 22 5.95617 22H7.87229C8.19917 22.0023 8.51349 21.8751 8.74547 21.6464C8.97746 21.4178 9.10793 21.1067 9.10792 20.7821H9.14373Z" fill="currentColor"/>
                                   </svg>
@@ -56,17 +56,8 @@ class Header extends HTMLElement {
                           <div class="col-md-12">
                               <div class="flex-wrap d-flex justify-content-between align-items-center">
                                   <div>
-                                      <h1>Hello Qompac!</h1>
-                                      <p>Experience a simple yet powerful way to build Dashboards with qompac-ui.</p>
-                                  </div>
-                                  <div>
-                                      <a href="#" class="btn btn-link btn-soft-light">
-                                          <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                              <path d="M11.8251 15.2171H12.1748C14.0987 15.2171 15.731 13.985 16.3054 12.2764C16.3887 12.0276 16.1979 11.7713 15.9334 11.7713H14.8562C14.5133 11.7713 14.2362 11.4977 14.2362 11.16C14.2362 10.8213 14.5133 10.5467 14.8562 10.5467H15.9005C16.2463 10.5467 16.5263 10.2703 16.5263 9.92875C16.5263 9.58722 16.2463 9.31075 15.9005 9.31075H14.8562C14.5133 9.31075 14.2362 9.03619 14.2362 8.69849C14.2362 8.35984 14.5133 8.08528 14.8562 8.08528H15.9005C16.2463 8.08528 16.5263 7.8088 16.5263 7.46728C16.5263 7.12575 16.2463 6.84928 15.9005 6.84928H14.8562C14.5133 6.84928 14.2362 6.57472 14.2362 6.23606C14.2362 5.89837 14.5133 5.62381 14.8562 5.62381H15.9886C16.2483 5.62381 16.4343 5.3789 16.3645 5.13113C15.8501 3.32401 14.1694 2 12.1748 2H11.8251C9.42172 2 7.47363 3.92287 7.47363 6.29729V10.9198C7.47363 13.2933 9.42172 15.2171 11.8251 15.2171Z" fill="currentColor"></path>
-                                              <path opacity="0.4" d="M19.5313 9.82568C18.9966 9.82568 18.5626 10.2533 18.5626 10.7823C18.5626 14.3554 15.6186 17.2627 12.0005 17.2627C8.38136 17.2627 5.43743 14.3554 5.43743 10.7823C5.43743 10.2533 5.00345 9.82568 4.46872 9.82568C3.93398 9.82568 3.5 10.2533 3.5 10.7823C3.5 15.0873 6.79945 18.6413 11.0318 19.1186V21.0434C11.0318 21.5715 11.4648 22.0001 12.0005 22.0001C12.5352 22.0001 12.9692 21.5715 12.9692 21.0434V19.1186C17.2006 18.6413 20.5 15.0873 20.5 10.7823C20.5 10.2533 20.066 9.82568 19.5313 9.82568Z" fill="currentColor"></path>
-                                          </svg>
-                                          Announcements
-                                      </a>
+                                      <h1>Namaste!</h1>
+                                      <p>Good health is not something we can buy. However, it can be an extremely valuable savings account.</p>
                                   </div>
                               </div>
                           </div>
@@ -188,6 +179,17 @@ class sidebar extends HTMLElement {
                         <span class="item-name">View Equipment List</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link " aria-current="page" href="app/operation-list.php">
+                         <i class="icon" data-bs-toggle="tooltip" title="Blank Page" data-bs-placement="right">
+                            <svg width="20" class="icon-20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path opacity="0.4" d="M16.191 2H7.81C4.77 2 3 3.78 3 6.83V17.16C3 20.26 4.77 22 7.81 22H16.191C19.28 22 21 20.26 21 17.16V6.83C21 3.78 19.28 2 16.191 2" fill="currentColor"/>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.07999 6.64999V6.65999C7.64899 6.65999 7.29999 7.00999 7.29999 7.43999C7.29999 7.86999 7.64899 8.21999 8.07999 8.21999H11.069C11.5 8.21999 11.85 7.86999 11.85 7.42899C11.85 6.99999 11.5 6.64999 11.069 6.64999H8.07999ZM15.92 12.74H8.07999C7.64899 12.74 7.29999 12.39 7.29999 11.96C7.29999 11.53 7.64899 11.179 8.07999 11.179H15.92C16.35 11.179 16.7 11.53 16.7 11.96C16.7 12.39 16.35 12.74 15.92 12.74ZM15.92 17.31H8.07999C7.77999 17.35 7.48999 17.2 7.32999 16.95C7.16999 16.69 7.16999 16.36 7.32999 16.11C7.48999 15.85 7.77999 15.71 8.07999 15.74H15.92C16.319 15.78 16.62 16.12 16.62 16.53C16.62 16.929 16.319 17.27 15.92 17.31Z" fill="currentColor"/>
+                            </svg>
+                        </i>
+                        <span class="item-name">View Operation List</span>
+                    </a>
+                </li>
             </ul>
             
             <!-- Sidebar Menu End -->        </div>
@@ -206,15 +208,7 @@ class footer extends HTMLElement {
             </ul>
             <div class="right-panel">
                 ©
-                <script>2022</script> <span data-setting="app_name">Qompac UI</span>, Made with
-                <span class="text-gray">
-                    <svg class="icon-16" width="15" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M15.85 2.50065C16.481 2.50065 17.111 2.58965 17.71 2.79065C21.401 3.99065 22.731 8.04065 21.62 11.5806C20.99 13.3896 19.96 15.0406 18.611 16.3896C16.68 18.2596 14.561 19.9196 12.28 21.3496L12.03 21.5006L11.77 21.3396C9.48102 19.9196 7.35002 18.2596 5.40102 16.3796C4.06102 15.0306 3.03002 13.3896 2.39002 11.5806C1.26002 8.04065 2.59002 3.99065 6.32102 2.76965C6.61102 2.66965 6.91002 2.59965 7.21002 2.56065H7.33002C7.61102 2.51965 7.89002 2.50065 8.17002 2.50065H8.28002C8.91002 2.51965 9.52002 2.62965 10.111 2.83065H10.17C10.21 2.84965 10.24 2.87065 10.26 2.88965C10.481 2.96065 10.69 3.04065 10.89 3.15065L11.27 3.32065C11.3618 3.36962 11.4649 3.44445 11.554 3.50912C11.6104 3.55009 11.6612 3.58699 11.7 3.61065C11.7163 3.62028 11.7329 3.62996 11.7496 3.63972C11.8354 3.68977 11.9247 3.74191 12 3.79965C13.111 2.95065 14.46 2.49065 15.85 2.50065ZM18.51 9.70065C18.92 9.68965 19.27 9.36065 19.3 8.93965V8.82065C19.33 7.41965 18.481 6.15065 17.19 5.66065C16.78 5.51965 16.33 5.74065 16.18 6.16065C16.04 6.58065 16.26 7.04065 16.68 7.18965C17.321 7.42965 17.75 8.06065 17.75 8.75965V8.79065C17.731 9.01965 17.8 9.24065 17.94 9.41065C18.08 9.58065 18.29 9.67965 18.51 9.70065Z"
-                            fill="currentColor"></path>
-                    </svg>
-                </span> by <a href="https://iqonic.design/" target="_blank">IQONIC Design</a>.
+                <script>2022</script> <span data-setting="app_name">Jeevanam</span>
             </div>
         </div>
     </footer>`
@@ -236,7 +230,7 @@ class loader extends HTMLElement {
         connectedCallback() {
             this.innerHTML = `
 <div class="sidebar-header d-flex align-items-center justify-content-start">
-            <a href="../index.html" class="navbar-brand">
+            <a href="index.php" class="navbar-brand">
 
                 <!--Logo start-->
                 <div class="logo-main">
@@ -245,20 +239,11 @@ class loader extends HTMLElement {
                             <path fill-rule="evenodd" clip-rule="evenodd"
                                 d="M7.25333 2H22.0444L29.7244 15.2103L22.0444 28.1333H7.25333L0 15.2103L7.25333 2ZM11.2356 9.32316H18.0622L21.3334 15.2103L18.0622 20.9539H11.2356L8.10669 15.2103L11.2356 9.32316Z"
                                 fill="currentColor" />
-                            <path d="M23.751 30L13.2266 15.2103H21.4755L31.9999 30H23.751Z" fill="#3FF0B9" />
-                        </svg>
-                    </div>
-                    <div class="logo-mini">
-                        <svg class=" icon-30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M7.25333 2H22.0444L29.7244 15.2103L22.0444 28.1333H7.25333L0 15.2103L7.25333 2ZM11.2356 9.32316H18.0622L21.3334 15.2103L18.0622 20.9539H11.2356L8.10669 15.2103L11.2356 9.32316Z"
-                                fill="currentColor" />
-                            <path d="M23.751 30L13.2266 15.2103H21.4755L31.9999 30H23.751Z" fill="#3FF0B9" />
                         </svg>
                     </div>
                 </div>
                 <!--logo End-->
-                <h4 class="logo-title" data-setting="app_name">Qompac UI</h4>
+                <h4 class="logo-title" data-setting="app_name">Jeevanam</h4>
             </a>
             <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
                 <i class="icon">

@@ -7,7 +7,11 @@ if(!$conn){
 $request_id=$_SESSION['request_id'];
 $id=$_POST['doct'];
 $requested_by=$_SESSION['hospital_id'];
-$sql1="INSERT INTO operation(hospital_id,date) values('$requested_by',now());";
+$sql="SELECT patient_id from ope_request where request_id='$request_id';";
+$result=mysqli_query($conn,$sql);
+$row=mysqli_fetch_assoc($result);
+$patient_id=$row['patient_id'];
+$sql1="INSERT INTO operation(hospital_id,patient_id,date) values('$requested_by','$patient_id',now());";
 mysqli_query($conn,$sql1);
 $sql="SELECT operation_id FROM operation where hospital_id='$requested_by' order by operation_id desc limit 1;";
 $result=mysqli_query($conn,$sql);

@@ -1,18 +1,21 @@
 <?php
 session_start();
-$_SESSION['request_id']=$_REQUEST['request_id'];
-$_SESSION['hospital_id']=$_REQUEST['hospital_id'];
+if (!isset($_REQUEST['state'])) {
+    $_REQUEST['state'] = 'all';
+}
+$state = $_REQUEST['state'];
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
 
-<!-- Mirrored from templates.iqonic.design/product/qompac-ui/html/dist/dashboard/app/user-add.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 21 Oct 2023 23:57:47 GMT -->
+<!-- Mirrored from templates.iqonic.design/product/qompac-ui/html/dist/dashboard/app/user-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 21 Oct 2023 23:57:48 GMT -->
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title data-setting="app_name" data-rightJoin=" Responsive Bootstrap 5 Admin Dashboard Template">Qompac UI
-        Responsive Bootstrap 5 Admin Dashboard Template</title>
+        Responsive
+        Bootstrap 5 Admin Dashboard Template</title>
     <meta name="description"
         content="Qompac UI is a revolutionary Bootstrap Admin Dashboard Template and UI Components Library. The Admin Dashboard Template and UI Component features 8 modules.">
     <meta name="keywords"
@@ -25,33 +28,32 @@ $_SESSION['hospital_id']=$_REQUEST['hospital_id'];
         href="https://templates.iqonic.design/product/qompac-ui/html/dist/assets/images/favicon.ico">
 
     <!-- Library / Plugin Css Build -->
-    <!-- <link rel="stylesheet" href="../../assets/css/core/libs.min.css"> -->
-    <link rel="stylesheet"
-        href="<?php echo "http://" . $_SERVER['SERVER_NAME'] . "/Compac-admin/assets/css/core/libs.min.css"; ?>">
+    <link rel="stylesheet" href="../assets/css/core/libs.min.css">
+
+
+
+
+
+
+
+
+
 
     <!-- qompac-ui Design System Css -->
-    <!-- <link rel="stylesheet" href="../../assets/css/qompac-ui.minf700.css?v=1.0.1"> -->
-    <link rel="stylesheet"
-        href="<?php echo "http://" . $_SERVER['SERVER_NAME'] . "/Compac-admin/assets/css/qompac-ui.minf700.css?v=1.0.1"; ?>">
+    <link rel="stylesheet" href="../assets/css/qompac-ui.minf700.css?v=1.0.1">
 
     <!-- Custom Css -->
-    <link rel="stylesheet"
-        href="<?php echo "http://" . $_SERVER['SERVER_NAME'] . "/Compac-admin/assets/css/custom.minf700.css?v=1.0.1"; ?>">
+    <link rel="stylesheet" href="../assets/css/custom.minf700.css?v=1.0.1">
     <!-- Dark Css -->
-    <link rel="stylesheet"
-        href="<?php echo "http://" . $_SERVER['SERVER_NAME'] . "/Compac-admin/assets/css/dark.minf700.css?v=1.0.1"; ?>">
+    <link rel="stylesheet" href="../assets/css/dark.minf700.css?v=1.0.1">
 
     <!-- Customizer Css -->
-    <link rel="stylesheet"
-        href="<?php echo "http://" . $_SERVER['SERVER_NAME'] . "/Compac-admin/assets/css/customizer.minf700.css?v=1.0.1"; ?>">
+    <link rel="stylesheet" href="../assets/css/customizer.minf700.css?v=1.0.1">
 
     <!-- RTL Css -->
-    <link rel="stylesheet"
-        href="<?php echo "http://" . $_SERVER['SERVER_NAME'] . "/Compac-admin/assets/css/rtl.minf700.css?v=1.0.1"; ?>">
+    <link rel="stylesheet" href="../assets/css/rtl.minf700.css?v=1.0.1">
 
-    <!-- My CSS -->
-    <link rel="stylesheet"
-        href="<?php echo "http://" . $_SERVER['SERVER_NAME'] . "/Compac-admin/assets/css/my_css/add_user.css?v=1.0.1"; ?>">
+
 
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com/">
@@ -76,45 +78,125 @@ $_SESSION['hospital_id']=$_REQUEST['hospital_id'];
         <div class="content-inner container-fluid pb-0" id="page_layout">
             <div>
                 <div class="row">
-                    <form id="fm" action="../my_php/operation_data_insert.php" method="post"
-                        enctype="multipart/form-data">
-
-                        <div class="col-xl-9 col-lg-8" id="right-div" style="margin-left:200px;">
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-between">
-                                    <div class="header-title">
-                                        <h4 class="card-title">Assing Doctor</h4>
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between">
+                                <div class="header-title">
+                                    <h4 class="card-title">Operation List</h4>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center rounded flex-wrap gap-3">
+                                    <div class="form-group mb-3">
+                                        <select class="select2-basic-single js-states form-control" name="state"
+                                            id="state" style="width: 100%;">
+                                            <option value="all" <?php if ($state == 'all') {
+                                                echo 'selected';
+                                            } ?>>All</option>
+                                            <option value="completed" <?php if ($state == 'completed') {
+                                                echo 'selected';
+                                            } ?>>Completed</option>
+                                            <option value="in-progress" <?php if ($state == 'in-progress') {
+                                                echo 'selected';
+                                            } ?>>In-Progress</option>
+                                            <option value="pending" <?php
+                                            if ($state == 'pending') {
+                                                echo 'selected';
+                                            }
+                                            ?>>Pending</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="card-body">
-                                    <div class="new-user-info">
+                            </div>
 
-                                        <div class="row">
-                                            <div id="docContainer">
-                                                <div class="form-group col-md-6">
-                                                    <label for="cat">Select Category:</label>
-                                                    <select name="cat" id="cat" class="form-control" required>
-                                                        
-                                                    </select>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="doct">Select Doctor:</label>
-                                                    <select name="doct" id="doct" class="form-control" required>
-                                                    <option value="" disabled selected>Select Doctor</option>   
-                                                    </select>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary">Assing</button>
+                            <div class="card-body">
+                                <div class="table-responsive border rounded">
 
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <table id="operation-list-table" class="table table-striped" role="grid"
+                                        data-toggle="data-table">
+                                        <thead>
+                                            <tr></tr>
+                                            <tr class="ligth">
+                                                <th>Operation Id</th>
+                                                <th>Hospital's User Name</th>
+                                                <th>Patient Id</th>
+                                                <th>Approved Date</th>
+                                                <th>Status</th>
+                                                <th>Started At</th>
+                                                <th>Completed At</th>
+                                                <th>Note</th>
+                                                <th style="min-width: 100px">Action</th>
+                                                <!-- <th style="min-width: 100px">Action</th> -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $conn = mysqli_connect("localhost", "root", "", "hms");
+                                            if (!$conn) {
+                                                die("Failed to connect: " . mysqli_connect_error());
+                                            }
+                                            if ($state == 'all') {
+                                                $sql = "SELECT * FROM operation";
+                                            } else {
+                                                $sql = "SELECT * FROM operation WHERE status='$state'";
+                                            }
+                                            $result = mysqli_query($conn, $sql);
+                                            if ($result) {
+                                                if (mysqli_num_rows($result) > 0) {
+                                                    while ($row = mysqli_fetch_assoc($result)) {
+                                                        echo "<tr>";
+                                                        echo "<td>" . $row['operation_id'] . "</td>";
+                                                        echo "<td>" . $row['hospital_id'] . "</td>";
+                                                        echo "<td>" . $row['patient_id'] . "</td>";
+                                                        echo "<td>" . $row['date'] . "</td>";
+                                                        echo "<td>" . $row['status'] . "</td>";
+                                                        echo "<td>" . $row['started_at'] . "</td>";
+                                                        echo "<td>" . $row['completed_at'] . "</td>";
+                                                        echo "<td>" . $row['note'] . "</td>";
+                                                        echo "<td><a href='../operation/view_operation.php?operation_id=" . $row["operation_id"] . "'><svg fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\">
+                                                    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M15.1614 12.0531C15.1614 13.7991 13.7454 15.2141 11.9994 15.2141C10.2534 15.2141 8.83838 13.7991 8.83838 12.0531C8.83838 10.3061 10.2534 8.89111 11.9994 8.89111C13.7454 8.89111 15.1614 10.3061 15.1614 12.0531Z\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" />
+                                                    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M11.998 19.355C15.806 19.355 19.289 16.617 21.25 12.053C19.289 7.48898 15.806 4.75098 11.998 4.75098H12.002C8.194 4.75098 4.711 7.48898 2.75 12.053C4.711 16.617 8.194 19.355 12.002 19.355H11.998Z\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" />
+                                                    </svg></a></td>";
+                                                        echo "</tr>";
+                                                    }
+                                                } else {
+                                                    echo "0 results";
+                                                }
+
+                                            } else {
+                                                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+                                            }
+                                            mysqli_close($conn);
+                                            ?>
+                                        </tbody>
+                                    </table>
+
                                 </div>
-                    </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <!-- Footer Section Start -->
-        <my-footer></my-footer>
+        <footer class="footer">
+            <div class="footer-body">
+                <ul class="left-panel list-inline mb-0 p-0">
+                    <li class="list-inline-item"><a href="javascript:void(0);">Privacy Policy</a></li>
+                    <li class="list-inline-item"><a href="javascript:void(0);">Terms of Use</a></li>
+                </ul>
+                <div class="right-panel">
+                    ©
+                    <script>2022</script> <span data-setting="app_name">Qompac UI</span>, Made with
+                    <span class="text-gray">
+                        <svg class="icon-16" width="15" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M15.85 2.50065C16.481 2.50065 17.111 2.58965 17.71 2.79065C21.401 3.99065 22.731 8.04065 21.62 11.5806C20.99 13.3896 19.96 15.0406 18.611 16.3896C16.68 18.2596 14.561 19.9196 12.28 21.3496L12.03 21.5006L11.77 21.3396C9.48102 19.9196 7.35002 18.2596 5.40102 16.3796C4.06102 15.0306 3.03002 13.3896 2.39002 11.5806C1.26002 8.04065 2.59002 3.99065 6.32102 2.76965C6.61102 2.66965 6.91002 2.59965 7.21002 2.56065H7.33002C7.61102 2.51965 7.89002 2.50065 8.17002 2.50065H8.28002C8.91002 2.51965 9.52002 2.62965 10.111 2.83065H10.17C10.21 2.84965 10.24 2.87065 10.26 2.88965C10.481 2.96065 10.69 3.04065 10.89 3.15065L11.27 3.32065C11.3618 3.36962 11.4649 3.44445 11.554 3.50912C11.6104 3.55009 11.6612 3.58699 11.7 3.61065C11.7163 3.62028 11.7329 3.62996 11.7496 3.63972C11.8354 3.68977 11.9247 3.74191 12 3.79965C13.111 2.95065 14.46 2.49065 15.85 2.50065ZM18.51 9.70065C18.92 9.68965 19.27 9.36065 19.3 8.93965V8.82065C19.33 7.41965 18.481 6.15065 17.19 5.66065C16.78 5.51965 16.33 5.74065 16.18 6.16065C16.04 6.58065 16.26 7.04065 16.68 7.18965C17.321 7.42965 17.75 8.06065 17.75 8.75965V8.79065C17.731 9.01965 17.8 9.24065 17.94 9.41065C18.08 9.58065 18.29 9.67965 18.51 9.70065Z"
+                                fill="currentColor"></path>
+                        </svg>
+                    </span> by <a href="https://iqonic.design/" target="_blank">IQONIC Design</a>.
+                </div>
+            </div>
+        </footer>
         <!-- Footer Section End -->
     </main>
     <!-- Wrapper End-->
@@ -158,7 +240,8 @@ $_SESSION['hospital_id']=$_REQUEST['hospital_id'];
                                                 <svg width="60" height="27" viewBox="0 0 60 27" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <rect x="0.375" y="0.375" width="59.25" height="26.25" rx="4.125"
-                                                        fill="white"></rect>
+                                                        fill="white">
+                                                    </rect>
                                                     <circle cx="9.75" cy="9.75" r="3.75" fill="#80868B"></circle>
                                                     <rect x="16.5" y="8.25" width="37.5" height="3" rx="1.5"
                                                         fill="#DADCE0"></rect>
@@ -183,7 +266,8 @@ $_SESSION['hospital_id']=$_REQUEST['hospital_id'];
                                                 <svg width="60" height="27" viewBox="0 0 60 27" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <rect x="0.375" y="0.375" width="59.25" height="26.25" rx="4.125"
-                                                        fill="#1E2745"></rect>
+                                                        fill="#1E2745">
+                                                    </rect>
                                                     <circle cx="9.75" cy="9.75" r="3.75" fill="#80868B"></circle>
                                                     <rect x="16.5" y="8.25" width="37.5" height="3" rx="1.5"
                                                         fill="#DADCE0"></rect>
@@ -208,7 +292,8 @@ $_SESSION['hospital_id']=$_REQUEST['hospital_id'];
                                                 <svg class="rounded" width="60" height="27" viewBox="0 0 60 27"
                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <rect x="0.375" y="0.375" width="59.25" height="26.25" rx="4.125"
-                                                        fill="#1E2745"></rect>
+                                                        fill="#1E2745">
+                                                    </rect>
                                                     <circle cx="9.75" cy="9.75" r="3.75" fill="#80868B"></circle>
                                                     <rect x="16.5" y="8.25" width="37.5" height="3" rx="1.5"
                                                         fill="#DADCE0"></rect>
@@ -218,7 +303,8 @@ $_SESSION['hospital_id']=$_REQUEST['hospital_id'];
                                                         <rect width="30" height="27" fill="white"></rect>
                                                         <circle cx="9.75" cy="9.75" r="3.75" fill="#80868B"></circle>
                                                         <rect x="16.5" y="8.25" width="37.5" height="3" rx="1.5"
-                                                            fill="#DADCE0"></rect>
+                                                            fill="#DADCE0">
+                                                        </rect>
                                                         <rect x="6" y="18" width="48" height="3" rx="1.5"
                                                             fill="currentColor"></rect>
                                                     </g>
@@ -517,7 +603,8 @@ $_SESSION['hospital_id']=$_REQUEST['hospital_id'];
                                             <svg class="text-primary" width="60" height="27" viewBox="0 0 60 27"
                                                 fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <circle r="6.5" transform="matrix(-1 0 0 1 48.5 13.5002)"
-                                                    fill="currentColor"></circle>
+                                                    fill="currentColor">
+                                                </circle>
                                                 <rect width="34" height="5" rx="2"
                                                     transform="matrix(-1 0 0 1 39 7.70026)" fill="#80868B"></rect>
                                                 <rect opacity="0.5" width="25.6281" height="3.2" rx="1.6"
@@ -557,8 +644,21 @@ $_SESSION['hospital_id']=$_REQUEST['hospital_id'];
     <script src="../assets/js/core/libs.min.js"></script>
     <!-- Plugin Scripts -->
 
+
+
+
+
+
+
+
+
     <!-- Slider-tab Script -->
     <script src="../assets/js/plugins/slider-tabs.js"></script>
+
+
+
+
+
     <!-- Lodash Utility -->
     <script src="../assets/vendor/lodash/lodash.min.js"></script>
     <!-- Utilities Functions -->
@@ -576,60 +676,34 @@ $_SESSION['hospital_id']=$_REQUEST['hospital_id'];
     <!-- qompacui Script -->
     <script src="../assets/js/qompac-uif700.js?v=1.0.1" defer></script>
     <script src="../assets/js/sidebarf700.js?v=1.0.1" defer></script>
-    <!-- Header -->
+
+    <!-- My script -->
     <script src="../my_js/header_footer.js"></script>
 
-    <!-- Custom Script -->
-    <!-- <script>
-        let cat = document.getElementById('cat');
-        let doct = document.getElementById('doct');
-        
-        cat.addEventListener("change",function(){
-            doct.innerHTML="";
-            let catVal=cat.value;
-            let temp = `
-            <option value="" disabled selected>Select Doctor</option>
-                                                    <?php
-                                                    // $conn = mysqli_connect("localhost", "root", "", "hms");
-                                                    // $sql = "SELECT * FROM doctor where 	current_position=;";
-                                                    // $result = mysqli_query($conn, $sql);
-                                                    // while ($row = mysqli_fetch_assoc($result)) {
-                                                    //     echo "<option value='" . $row['doctor_id'] . "'>" . $row['first_name'] . " " . $row['last_name'] . "</option>";
-                                                    // }
-                                                    ?>
-             `;
-        })
-     </script> -->
-     <script>
-       $(document).ready(function(){
-        function loadData(type,cat){
+    <script>
+        function check() {
+            let flag = confirm("Are you sure you want to delete this user?");
+            if (flag) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        $('#state').on('change', function () {
+            let state_val = $(this).val();
             $.ajax({
-                url:"fetch_catData.php",
-                type : "POST",
-                data : {type:type,id : cat},
-                success : function(data){
-                    if(type=="doct"){
-                        $("#doct").html(data);
-                    }else{
-                        $("#cat").append(data);
-                    }
-                    
+                url: '../my_php/get-operation-list.php',
+                type: 'POST',
+                data: { state: state_val },
+                success: function (data) {
+                    $('#operation-list-table').html(data);
                 }
             });
-        }
-        loadData();
-        $("#cat").on("change",function(){
-            let cat=$("#cat").val();
-            loadData("doct",cat);
-        })
-       });
-
-       document.getElementById('addDoct').addEventListener("click",function(){
-        alert("hello");
-       })
-     </script>
+        });
+    </script>
 </body>
 
-<!-- Mirrored from templates.iqonic.design/product/qompac-ui/html/dist/dashboard/app/user-add.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 21 Oct 2023 23:57:48 GMT -->
+<!-- Mirrored from templates.iqonic.design/product/qompac-ui/html/dist/dashboard/app/user-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 21 Oct 2023 23:57:48 GMT -->
 
 </html>
